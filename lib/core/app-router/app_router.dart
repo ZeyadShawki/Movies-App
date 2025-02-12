@@ -14,7 +14,7 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: TestDummyRoute.page, initial: true),
+        AutoRoute(page: FeaturedFilmListRoute.page, initial: true),
 
 
       ];

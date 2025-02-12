@@ -10,20 +10,21 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i2;
-import 'package:movies/movies/presentation/screens/test_screen.dart' as _i1;
+import 'package:movies/movies/presentation/screens/featured_film_list_page.dart'
+    as _i1;
 
 /// generated route for
-/// [_i1.TestDummyScreen]
-class TestDummyRoute extends _i2.PageRouteInfo<void> {
-  const TestDummyRoute({List<_i2.PageRouteInfo>? children})
-    : super(TestDummyRoute.name, initialChildren: children);
+/// [_i1.FeaturedFilmListPage]
+class FeaturedFilmListRoute extends _i2.PageRouteInfo<void> {
+  const FeaturedFilmListRoute({List<_i2.PageRouteInfo>? children})
+    : super(FeaturedFilmListRoute.name, initialChildren: children);
 
-  static const String name = 'TestDummyRoute';
+  static const String name = 'FeaturedFilmListRoute';
 
   static _i2.PageInfo page = _i2.PageInfo(
     name,
     builder: (data) {
-      return const _i1.TestDummyScreen();
+      return const _i1.FeaturedFilmListPage();
     },
   );
 }

@@ -1,16 +1,10 @@
-
-
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/core/asset_manger/app_string.dart';
-
 
 import '../../theme/app_colors.dart';
 
 extension StringExtensions on String {
-
-
   Image toAssetImage({double? height, double? width}) => Image.asset(
         this,
         height: height,
@@ -20,16 +14,14 @@ extension StringExtensions on String {
   Widget errText() => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: toSubTitle(
-            textAlign: TextAlign.start,
-            color: AppColors.ellired,
-            fontSize: 16.sp),
+            textAlign: TextAlign.start, color: AppColors.red, fontSize: 16.sp),
       );
 
   Widget toSubTitle({
     num fontSize = AppFontSize.subTitle1,
     FontWeight fontWeight = FontWeight.w400,
-    Color color = Colors.black,
-    Color linkColor = AppColors.colorPrimary,
+    Color color = Colors.white,
+    Color linkColor = Colors.blue,
     TextAlign textAlign = TextAlign.start,
     void Function(String)? launchFunction,
     void Function(String)? onTapHashtag,
@@ -37,7 +29,7 @@ extension StringExtensions on String {
     TextOverflow overflow = TextOverflow.clip,
     double? letterSpacing,
     int? maxLines,
-    String fontFamily=AppStrings.helixfontFamily,
+    String fontFamily = AppStrings.helixfontFamily,
     bool underline = false,
     double? lineHeight,
   }) =>
@@ -51,13 +43,11 @@ extension StringExtensions on String {
           fontSize: fontSize.sp,
           letterSpacing: letterSpacing,
           height: lineHeight,
-          color: color == AppColors.textColor ? AppColors.textColor : color,
+          color: color,
           fontWeight: fontWeight,
-          fontFamily: fontFamily ,
+          fontFamily: fontFamily,
         ),
-   
       );
-
 }
 
 class AppFontSize {

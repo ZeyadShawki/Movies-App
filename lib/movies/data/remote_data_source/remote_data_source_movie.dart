@@ -6,6 +6,7 @@ import 'package:movies/movies/data/models/recommended_movie_model.dart';
 import 'package:movies/movies/domain/entities/movie.dart';
 import 'package:movies/movies/domain/entities/movie_details.dart';
 import 'package:movies/movies/domain/entities/recommended_movie.dart';
+import 'package:injectable/injectable.dart' as injectable;
 
 abstract class BaseMovieRemoteDataSource {
   Future<List<Movie>> getNowPlayingMovie();
@@ -15,7 +16,8 @@ abstract class BaseMovieRemoteDataSource {
   Future<List<RecommendedMovie>> getRecommendedMovie(int id);
   Future<List<Movie>> searchForMovie(String query);
 }
-
+@injectable.Order(-3)
+@injectable.Singleton(as: BaseMovieRemoteDataSource)
 class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
   @override
   Future<List<MovieModel>> getNowPlayingMovie() async {

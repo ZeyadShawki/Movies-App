@@ -1,14 +1,17 @@
 import 'package:dartz/dartz.dart';
 import 'package:movies/core/helpers/error/failure.dart';
 import 'package:movies/core/helpers/error/server_exception.dart';
+import 'package:movies/core/helpers/network/network_info.dart';
 import 'package:movies/movies/data/remote_data_source/remote_data_source_movie.dart';
 import 'package:movies/movies/domain/entities/movie.dart';
 import 'package:movies/movies/domain/entities/movie_details.dart';
 import 'package:movies/movies/domain/entities/recommended_movie.dart';
 import 'package:movies/movies/domain/reposetry/base_movie_repostery.dart';
 
-import '../../../core/network/network_info.dart';
+import 'package:injectable/injectable.dart' as injectable;
 
+@injectable.Order(-2)
+@injectable.Singleton(as: BaseMovieRepostery)
 class MovieRepostery extends BaseMovieRepostery {
   final BaseMovieRemoteDataSource remoteDataSource;
   final NetworkInfo _networkInfo;
