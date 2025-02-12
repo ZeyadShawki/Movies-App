@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
 
 
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/core/asset_manger/app_string.dart';
 
 
 import '../../theme/app_colors.dart';
@@ -28,7 +28,7 @@ extension StringExtensions on String {
   Widget toSubTitle({
     num fontSize = AppFontSize.subTitle1,
     FontWeight fontWeight = FontWeight.w400,
-    Color color = AppColors.textColor,
+    Color color = Colors.black,
     Color linkColor = AppColors.colorPrimary,
     TextAlign textAlign = TextAlign.start,
     void Function(String)? launchFunction,
@@ -37,7 +37,7 @@ extension StringExtensions on String {
     TextOverflow overflow = TextOverflow.clip,
     double? letterSpacing,
     int? maxLines,
-    String? fontFamily,
+    String fontFamily=AppStrings.helixfontFamily,
     bool underline = false,
     double? lineHeight,
   }) =>
@@ -51,16 +51,11 @@ extension StringExtensions on String {
           fontSize: fontSize.sp,
           letterSpacing: letterSpacing,
           height: lineHeight,
-          // fontSize: fontSize.sp,
           color: color == AppColors.textColor ? AppColors.textColor : color,
           fontWeight: fontWeight,
-          fontFamily: fontFamily ?? 'nunito',
+          fontFamily: fontFamily ,
         ),
-        // linkStyle: TextStyle(
-        //   color: linkColor,
-        //   height: 0.8,
-        //   decoration: TextDecoration.none,
-        // ),
+   
       );
 
 }
