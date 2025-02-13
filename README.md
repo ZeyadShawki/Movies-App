@@ -125,7 +125,7 @@ Implements pagination for search results.
 
 - Movie Details Screen:
 
-Shows detailed information about a selected movie, including synopsis, rating, and cast.
+Shows detailed information about a selected movie, including synopsis and rating.
 
 Fetches recommended movies for similar content suggestions.
 
