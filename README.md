@@ -6,7 +6,7 @@ This project demonstrates the implementation of **Movies App With Clean Architec
 
 ### Home Screen  
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/6e2fd026-9ac3-4c35-87b1-4d9e05ca2ead" width="200" style="margin-right: 30px;">
+  <img src="https://github.com/user-attachments/assets/6e2fd026-9ac3-4c35-87b1-4d9e05ca2ead" width="200" style="left: 30px;">
   <img src="https://github.com/user-attachments/assets/0e3dcf91-ef79-4c53-ba48-9c08d249248d" width="200">
 </div>
 
@@ -17,9 +17,11 @@ This project demonstrates the implementation of **Movies App With Clean Architec
 
 ### Movie details  
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/133370e5-77fd-496d-b05f-ef24303ec3ab" width="200" style="margin-right: 30px;">
-  <img src="https://github.com/user-attachments/assets/c787040d-edc4-46d4-8c88-670a4061f50c" width="200">
+  <img src="https://github.com/user-attachments/assets/133370e5-77fd-496d-b05f-ef24303ec3ab" width="200" style="left: 30px;">
 </div>
+### Movie details on long press on search item 
+  <img src="https://github.com/user-attachments/assets/c787040d-edc4-46d4-8c88-670a4061f50c" width="200">
+
 
 ## Table of Contents
 
