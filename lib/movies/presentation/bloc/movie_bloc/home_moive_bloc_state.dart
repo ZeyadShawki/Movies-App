@@ -3,7 +3,7 @@ import '../../../../core/utils/enum_movie_state.dart';
 
 import '../../../domain/entities/movie.dart';
 
-class MovieState extends Equatable {
+class HomeMovieState extends Equatable {
   final RequestState nowPlayingState;
   final RequestState popularState;
   final RequestState topRatedState;
@@ -16,7 +16,7 @@ class MovieState extends Equatable {
   final String popularMessage;
   final String topRatedMessage;
 
-  const MovieState({
+  const HomeMovieState({
     this.nowPlayingState = RequestState.isLoading,
     this.popularState = RequestState.isLoading,
     this.topRatedState = RequestState.isLoading,
@@ -28,7 +28,7 @@ class MovieState extends Equatable {
     this.topRatedMovie = const [],
   });
 
-  MovieState copywith({
+  HomeMovieState copywith({
     RequestState? nowPlayingState,
     RequestState? popularState,
     RequestState? topRatedState,
@@ -39,7 +39,7 @@ class MovieState extends Equatable {
     String? popularMessage,
     String? topRatedMessage,
   }) {
-    return MovieState(
+    return HomeMovieState(
       nowPlayingMovie: nowPlayingMovie ?? this.nowPlayingMovie,
       nowPlayingState: nowPlayingState ?? this.nowPlayingState,
       nowPlayingMessage: nowPlayingMessage ?? this.nowPlayingMessage,

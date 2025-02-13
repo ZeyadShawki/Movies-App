@@ -2,22 +2,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/utils/enum_movie_state.dart';
 import '../../../domain/usecase/get_nowplaying_movie_usecase.dart';
-import 'bloc_event.dart';
-import 'bloc_state.dart';
+import 'home_moive_bloc_event.dart';
+import 'home_moive_bloc_state.dart';
 
 import '../../../domain/usecase/get_populer_movie_usecase.dart';
 import '../../../domain/usecase/get_top_rated_movie_usecase.dart';
 
 @injectable
-class MovieBloc extends Bloc<MovieEvent, MovieState> {
+class HomeMovieBloc extends Bloc<HomeMovieEvent, HomeMovieState> {
   final GetNowPlayingUseCase getNowPlayingUseCase;
   final GetPopularMovieUseCase getPopularMovieUseCase;
   final GetTopRatedUseCase getTopRatedUseCase;
-  MovieBloc(
+  HomeMovieBloc(
     this.getNowPlayingUseCase,
     this.getTopRatedUseCase,
     this.getPopularMovieUseCase,
-  ) : super(const MovieState()) {
+  ) : super(const HomeMovieState()) {
     on<GetNowPlayingEvent>(_getNowPlaying);
     on<GetPopularEvent>(_getPopular);
     on<GetTopRatedEvent>(_getTopRated);
@@ -28,7 +28,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   int topRatedPage = 1;
 
   void _getNowPlaying(
-      GetNowPlayingEvent event, Emitter<MovieState> emit) async {
+      GetNowPlayingEvent event, Emitter<HomeMovieState> emit) async {
     emit(state.copywith(
       nowPlayingState: RequestState.isLoading,
     ));
@@ -50,7 +50,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     });
   }
 
-  void _getPopular(GetPopularEvent event, Emitter<MovieState> emit) async {
+  void _getPopular(GetPopularEvent event, Emitter<HomeMovieState> emit) async {
     emit(state.copywith(
       popularState: RequestState.isLoading,
     ));
@@ -73,7 +73,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     });
   }
 
-  void _getTopRated(GetTopRatedEvent event, Emitter<MovieState> emit) async {
+  void _getTopRated(GetTopRatedEvent event, Emitter<HomeMovieState> emit) async {
     emit(state.copywith(
       topRatedState: RequestState.isLoading,
     ));

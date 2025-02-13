@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/movies/presentation/widgets/dashboard_error_widget.dart';
 
 import '../../../core/utils/enum_movie_state.dart';
-import '../bloc/movie_bloc/bloc.dart';
-import '../bloc/movie_bloc/bloc_event.dart';
-import '../bloc/movie_bloc/bloc_state.dart';
+import '../bloc/movie_bloc/home_moive_bloc.dart';
+import '../bloc/movie_bloc/home_moive_bloc_event.dart';
+import '../bloc/movie_bloc/home_moive_bloc_state.dart';
 import 'mini_list_view_item_widget.dart';
 
 class GetPopularListViewWidget extends StatefulWidget {
@@ -29,16 +29,16 @@ class _GetPopularListViewWidgetState extends State<GetPopularListViewWidget> {
     if (_scrollController.positions.first.pixels >=
             _scrollController.positions.first.maxScrollExtent * 0.9 &&
         !_scrollController.positions.first.outOfRange &&
-        context.read<MovieBloc>().state.popularState !=
+        context.read<HomeMovieBloc>().state.popularState !=
             RequestState.isLoading) {
-      context.read<MovieBloc>().add(GetPopularEvent());
+      context.read<HomeMovieBloc>().add(GetPopularEvent());
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MovieBloc, MovieState>(
-      bloc: context.read<MovieBloc>(),
+    return BlocConsumer<HomeMovieBloc, HomeMovieState>(
+      bloc: context.read<HomeMovieBloc>(),
       buildWhen: (previous, current) =>
           previous.popularState != current.popularState,
       listener: (context, state) {},
@@ -80,7 +80,7 @@ class _GetPopularListViewWidgetState extends State<GetPopularListViewWidget> {
           return DashBoardErrorWidget(
             message: state.nowPlayingMessage,
             fun: () {
-              context.read<MovieBloc>().add(GetPopularEvent());
+              context.read<HomeMovieBloc>().add(GetPopularEvent());
             },
           );
         } else {

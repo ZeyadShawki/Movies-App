@@ -12,16 +12,16 @@ import '../../../core/helpers/extensions/screen_util_extension.dart';
 import '../../../core/helpers/extensions/string_extensions.dart';
 import '../../../core/network/api_constants.dart';
 import '../../../core/utils/enum_movie_state.dart';
-import '../bloc/movie_bloc/bloc.dart';
-import '../bloc/movie_bloc/bloc_event.dart';
-import '../bloc/movie_bloc/bloc_state.dart';
+import '../bloc/movie_bloc/home_moive_bloc.dart';
+import '../bloc/movie_bloc/home_moive_bloc_event.dart';
+import '../bloc/movie_bloc/home_moive_bloc_state.dart';
 import 'image_loading_error_widget.dart';
 
 class BannerWidget extends StatelessWidget {
   const BannerWidget({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MovieBloc, MovieState>(
+    return BlocConsumer<HomeMovieBloc, HomeMovieState>(
         buildWhen: (previous, current) =>
             previous.nowPlayingState != current.nowPlayingState,
         listener: (context, state) {},
@@ -29,7 +29,7 @@ class BannerWidget extends StatelessWidget {
           if (state.nowPlayingState == RequestState.isLoaded) {
             return RefreshIndicator(
               onRefresh: () async {
-                context.read<MovieBloc>().add(GetNowPlayingEvent());
+                context.read<HomeMovieBloc>().add(GetNowPlayingEvent());
               },
               child: CarouselSlider.builder(
                 itemBuilder: (BuildContext context, int index, int realIndex) {
@@ -131,7 +131,7 @@ class BannerWidget extends StatelessWidget {
             return DashBoardErrorWidget(
               message: state.nowPlayingMessage,
               fun: () {
-                context.read<MovieBloc>().add(GetNowPlayingEvent());
+                context.read<HomeMovieBloc>().add(GetNowPlayingEvent());
               },
             );
           }

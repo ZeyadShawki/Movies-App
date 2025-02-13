@@ -11,9 +11,9 @@ import '../../../core/helpers/extensions/screen_util_extension.dart';
 import '../../../core/helpers/extensions/string_extensions.dart';
 import '../../../core/theme/animated_fade_widget.dart';
 import '../../../core/theme/app_colors.dart';
-import '../bloc/movie_bloc/bloc.dart';
-import '../bloc/movie_bloc/bloc_event.dart';
-import '../bloc/movie_bloc/bloc_state.dart';
+import '../bloc/movie_bloc/home_moive_bloc.dart';
+import '../bloc/movie_bloc/home_moive_bloc_event.dart';
+import '../bloc/movie_bloc/home_moive_bloc_state.dart';
 import '../widgets/get_now_playing_banner_widget.dart';
 import '../widgets/get_popular_widget.dart';
 import '../widgets/get_top_rated_widget.dart';
@@ -24,14 +24,14 @@ class FeaturedFilmListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MovieBloc>(
+    return BlocProvider<HomeMovieBloc>(
       create: (context) {
-        return getIt<MovieBloc>()
+        return getIt<HomeMovieBloc>()
           ..add(GetNowPlayingEvent())
           ..add(GetPopularEvent())
           ..add(GetTopRatedEvent());
       },
-      child: BlocConsumer<MovieBloc, MovieState>(
+      child: BlocConsumer<HomeMovieBloc, HomeMovieState>(
         builder: (context, state) {
           return Scaffold(
             backgroundColor: AppColors.blackPrimary1,
@@ -87,7 +87,7 @@ class FeaturedFilmListPage extends StatelessWidget {
                       children: [
                         InkWell(
                             onTap: () => context
-                                .read<MovieBloc>()
+                                .read<HomeMovieBloc>()
                                 .add(GetNowPlayingEvent()),
                             child: AppStrings.popular.toSubTitle(
                                 color: Colors.white,

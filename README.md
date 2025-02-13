@@ -1,6 +1,9 @@
-# Flutter Clean Architecture Example
+# Movies App With Clean Architecture 
 
 This project demonstrates the implementation of **Movies App With Clean Architecture** in a Flutter application. The goal is to provide a clear, scalable structure by separating concerns into distinct layers, improving maintainability, testability, and scalability.
+
+## ScreenShots
+
 
 ## Table of Contents
 
@@ -75,6 +78,60 @@ The **Data Layer** is responsible for retrieving and storing data. It implements
 - **Models**: Represents data objects for serialization/deserialization.
 - **Repositories**: Implements repository interfaces from the **Domain Layer**.
 
+### 📌 API Configuration
+
+APIs Used
+
+Get Popular Movies: GET /movie/popular
+
+Get Top Rated Movies: GET /movie/top_rated
+
+Get Recommended Movies: GET /movie/{movie_id}/recommendations
+
+Search Movies: GET /search/movie?query={query}
+
+Get Movie Details: GET /movie/{movie_id}
+
+Screens Using Movies API
+
+- Home Screen:
+
+Displays a list of popular movies, top-rated movies, and recommended movies fetched from the API.
+
+Implements pagination for popular and top-rated movies.
+
+- Search Screen:
+
+Allows users to search for movies using the API's search endpoint.
+
+Implements pagination for search results.
+
+- Movie Details Screen:
+
+Shows detailed information about a selected movie, including synopsis, rating, and cast.
+
+Fetches recommended movies for similar content suggestions.
+
+### State Management
+
+This project uses BLoC (Business Logic Component) and Cubit for state management, ensuring efficient handling of API responses, UI updates, and state transitions.
+
+- Home Screen:
+
+Uses HomeMoiveBloc to manage state for popular movies, top-rated movies, and recommendations.
+
+Implements pagination using BLoC for handling infinite scrolling.
+
+- Search Screen:
+
+Uses SearchCubit to handle search queries and manage state for search results.
+
+Implements pagination for efficient data fetching.
+
+- Movie Details Screen:
+
+Uses  MovieDetailsCubit Cubit to fetch and manage movie details and recommendations dynamically.
+
 ## Dependencies
 
 This project uses the following dependencies:
@@ -137,8 +194,10 @@ Contributions are welcome! Follow these steps to contribute:
    ```
 5. **Open a pull request.**
 
+
+
+
+
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
-
-

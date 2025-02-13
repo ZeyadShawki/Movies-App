@@ -1,25 +1,25 @@
 import 'package:equatable/equatable.dart';
 
-abstract class MovieEvent extends Equatable {
-  const MovieEvent();
+abstract class HomeMovieEvent extends Equatable {
+  const HomeMovieEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class GetNowPlayingEvent extends MovieEvent {
+class GetNowPlayingEvent extends HomeMovieEvent {
   final bool loadMore;
 
   const GetNowPlayingEvent({this.loadMore = false});
 }
 
-class GetPopularEvent extends MovieEvent {
+class GetPopularEvent extends HomeMovieEvent {
   final bool loadMore;
 
   const GetPopularEvent({this.loadMore = false});
 }
 
-class GetTopRatedEvent extends MovieEvent {
+class GetTopRatedEvent extends HomeMovieEvent {
   final bool loadMore;
 
   const GetTopRatedEvent({this.loadMore = false});

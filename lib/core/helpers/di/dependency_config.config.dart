@@ -33,7 +33,8 @@ import 'package:movies/movies/domain/usecase/get_top_rated_movie_usecase.dart'
     as _i758;
 import 'package:movies/movies/domain/usecase/search_for_movie_use_case.dart'
     as _i665;
-import 'package:movies/movies/presentation/bloc/movie_bloc/bloc.dart' as _i893;
+import 'package:movies/movies/presentation/bloc/movie_bloc/home_moive_bloc.dart'
+    as _i437;
 import 'package:movies/movies/presentation/bloc/movie_details_cubit/movie_details_cubit.dart'
     as _i60;
 import 'package:movies/movies/presentation/bloc/search_cubit/search_for_movie_cubit.dart'
@@ -85,7 +86,7 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i957.SearchForMovieCubit>(
         () => _i957.SearchForMovieCubit(gh<_i665.SearchForMovieUseCase>()));
-    gh.factory<_i893.MovieBloc>(() => _i893.MovieBloc(
+    gh.factory<_i437.HomeMovieBloc>(() => _i437.HomeMovieBloc(
           gh<_i215.GetNowPlayingUseCase>(),
           gh<_i758.GetTopRatedUseCase>(),
           gh<_i327.GetPopularMovieUseCase>(),

@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/movies/presentation/widgets/dashboard_error_widget.dart';
 
 import '../../../core/app-router/app_router.gr.dart';
 import '../../../core/asset_manger/app_string.dart';
@@ -216,7 +217,17 @@ class _SearchedFilmListPageState extends State<SearchedFilmListPage>
                                 ],
                               ),
                             ))
-                      else if (state.searchState == RequestState.isLoading &&
+                      else if (state.searchState == RequestState.isError) ...{
+                        DashBoardErrorWidget(
+                          message: state.searchMessage,
+                          fun: () {
+                            searchCubit.searchForMovie(query: {
+                              ...query,
+                              'query': _searchController.text
+                            });
+                          },
+                        )
+                      } else if (state.searchState == RequestState.isLoading &&
                           state.searchList.isNotEmpty) ...{
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.8,
