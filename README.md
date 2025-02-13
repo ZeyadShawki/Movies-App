@@ -160,6 +160,8 @@ flutter pub get
 
 Follow these steps to set up the project:
 
+Ensure you have an .env file in the project root for easier setup. This file is added to the project directory to simplify API key management and avoid hardcoding sensitive information directly in the codebase. It only contains the Movie DB API key.
+
 1. **Clone the repository:**
 
    ```bash
