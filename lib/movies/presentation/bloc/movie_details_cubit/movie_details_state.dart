@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:movies/movies/domain/entities/recommended_movie.dart';
+import '../../../domain/entities/recommended_movie.dart';
 
 import '../../../../core/utils/enum_movie_state.dart';
 import '../../../domain/entities/movie_details.dart';

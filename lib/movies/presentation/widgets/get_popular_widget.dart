@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies/core/utils/enum_movie_state.dart';
-import 'package:movies/movies/presentation/bloc/movie_bloc/bloc.dart';
-import 'package:movies/movies/presentation/bloc/movie_bloc/bloc_event.dart';
-import 'package:movies/movies/presentation/bloc/movie_bloc/bloc_state.dart';
-import 'package:movies/movies/presentation/widgets/mini_list_view_item_widget.dart';
+import 'package:movies/movies/presentation/widgets/dashboard_error_widget.dart';
+
+import '../../../core/utils/enum_movie_state.dart';
+import '../bloc/movie_bloc/bloc.dart';
+import '../bloc/movie_bloc/bloc_event.dart';
+import '../bloc/movie_bloc/bloc_state.dart';
+import 'mini_list_view_item_widget.dart';
 
 class GetPopularListViewWidget extends StatefulWidget {
   const GetPopularListViewWidget({super.key});
@@ -41,7 +43,7 @@ class _GetPopularListViewWidgetState extends State<GetPopularListViewWidget> {
           previous.popularState != current.popularState,
       listener: (context, state) {},
       builder: (context, state) {
-        if (state.popularMovie != []) {
+        if (state.popularMovie.isNotEmpty) {
           return Container(
             height: MediaQuery.of(context).size.height * 0.3,
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -55,16 +57,16 @@ class _GetPopularListViewWidgetState extends State<GetPopularListViewWidget> {
                   return state.popularState == RequestState.isLoading
                       ? Row(
                           children: [
-                            MiniItemWidget( movie: state.popularMovie[index]),
+                            MiniItemWidget(movie: state.popularMovie[index]),
                             const SizedBox(
                               width: 50,
                               child: Center(child: CircularProgressIndicator()),
                             ),
                           ],
                         )
-                      :     MiniItemWidget( movie: state.popularMovie[index]);
+                      : MiniItemWidget(movie: state.popularMovie[index]);
                 }
-                return     MiniItemWidget( movie: state.popularMovie[index]);
+                return MiniItemWidget(movie: state.popularMovie[index]);
               },
               itemCount: state.popularMovie.length,
               separatorBuilder: (context, index) {
@@ -73,6 +75,13 @@ class _GetPopularListViewWidgetState extends State<GetPopularListViewWidget> {
                 );
               },
             ),
+          );
+        } else if (state.popularState == RequestState.isError) {
+          return DashBoardErrorWidget(
+            message: state.nowPlayingMessage,
+            fun: () {
+              context.read<MovieBloc>().add(GetPopularEvent());
+            },
           );
         } else {
           return SizedBox(
@@ -85,5 +94,4 @@ class _GetPopularListViewWidgetState extends State<GetPopularListViewWidget> {
       },
     );
   }
-
 }

@@ -1,15 +1,21 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/core/asset_manger/app_string.dart';
-import 'package:movies/core/helpers/extensions/screen_util_extension.dart';
-import 'package:movies/core/helpers/extensions/string_extensions.dart';
-import 'package:movies/core/network/api_constants.dart';
-import 'package:movies/core/utils/enum_movie_state.dart';
-import 'package:movies/movies/presentation/bloc/movie_bloc/bloc.dart';
-import 'package:movies/movies/presentation/bloc/movie_bloc/bloc_event.dart';
-import 'package:movies/movies/presentation/bloc/movie_bloc/bloc_state.dart';
+import 'package:movies/core/app-router/app_router.gr.dart';
+import 'package:movies/core/theme/animated_fade_widget.dart';
+import 'package:movies/movies/presentation/widgets/dashboard_error_widget.dart';
+
+import '../../../core/asset_manger/app_string.dart';
+import '../../../core/helpers/extensions/screen_util_extension.dart';
+import '../../../core/helpers/extensions/string_extensions.dart';
+import '../../../core/network/api_constants.dart';
+import '../../../core/utils/enum_movie_state.dart';
+import '../bloc/movie_bloc/bloc.dart';
+import '../bloc/movie_bloc/bloc_event.dart';
+import '../bloc/movie_bloc/bloc_state.dart';
+import 'image_loading_error_widget.dart';
 
 class BannerWidget extends StatelessWidget {
   const BannerWidget({super.key});
@@ -28,18 +34,26 @@ class BannerWidget extends StatelessWidget {
               child: CarouselSlider.builder(
                 itemBuilder: (BuildContext context, int index, int realIndex) {
                   return Column(children: [
-                    Container(
-                      height: 350.h,
-                      width: 230.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(25),
-                        child: Image.network(
-                          ApiConstants().networkimagemaker(
-                              state.nowPlayingMovie[index].posterPath),
-                          fit: BoxFit.cover,
+                    AnimatedFadeWidget(
+                      onTap: () {
+                        context.router.push(MovieDetailsRoute(
+                            id: state.nowPlayingMovie[index].id ?? 0));
+                      },
+                      child: Container(
+                        height: 350.h,
+                        width: 230.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child: Image.network(
+                            ApiConstants().networkimagemaker(
+                                state.nowPlayingMovie[index].posterPath),
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                ImageLoadingErrorWidget(),
+                          ),
                         ),
                       ),
                     ),
@@ -114,7 +128,12 @@ class BannerWidget extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.4,
                 child: const Center(child: CircularProgressIndicator()));
           } else {
-            return Text(state.nowPlayingMessage);
+            return DashBoardErrorWidget(
+              message: state.nowPlayingMessage,
+              fun: () {
+                context.read<MovieBloc>().add(GetNowPlayingEvent());
+              },
+            );
           }
         });
   }

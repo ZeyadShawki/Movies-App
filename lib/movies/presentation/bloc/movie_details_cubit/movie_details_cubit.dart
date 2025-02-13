@@ -17,7 +17,7 @@ class MovieDetailsCubit extends Cubit<MovieDetailsInitial> {
   ) : super(const MovieDetailsInitial());
 
   void getMovieDetails(int id) async {
-    final result = await getMovieDetailsUseCase.excute(id);
+    final result = await getMovieDetailsUseCase(id);
     result.fold((l) {
       emit(state.copWith(
         movieDetailsMessage: l.message,
@@ -30,7 +30,7 @@ class MovieDetailsCubit extends Cubit<MovieDetailsInitial> {
   }
 
   void getRecomended(int id) async {
-    final result = await getRecommendedMovieUseCase.execute(id);
+    final result = await getRecommendedMovieUseCase(id);
 
     result.fold((l) {
       emit(state.copWith(

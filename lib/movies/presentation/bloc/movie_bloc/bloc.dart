@@ -1,10 +1,9 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:movies/core/utils/enum_movie_state.dart';
-import 'package:movies/movies/domain/usecase/get_nowplaying_movie_usecase.dart';
-import 'package:movies/movies/presentation/bloc/movie_bloc/bloc_event.dart';
-import 'package:movies/movies/presentation/bloc/movie_bloc/bloc_state.dart';
+import '../../../../core/utils/enum_movie_state.dart';
+import '../../../domain/usecase/get_nowplaying_movie_usecase.dart';
+import 'bloc_event.dart';
+import 'bloc_state.dart';
 
 import '../../../domain/usecase/get_populer_movie_usecase.dart';
 import '../../../domain/usecase/get_top_rated_movie_usecase.dart';
@@ -33,7 +32,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     emit(state.copywith(
       nowPlayingState: RequestState.isLoading,
     ));
-    final result = await getNowPlayingUseCase.execute(page: nowPlayingPage++);
+    final result = await getNowPlayingUseCase( nowPlayingPage++);
 
     result.fold((l) {
       emit(state.copywith(
@@ -52,12 +51,11 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   }
 
   void _getPopular(GetPopularEvent event, Emitter<MovieState> emit) async {
-
     emit(state.copywith(
       popularState: RequestState.isLoading,
     ));
 
-    final result = await getPopularMovieUseCase.execute(page: popularPage++);
+    final result = await getPopularMovieUseCase( popularPage++);
 
     result.fold((l) {
       emit(state.copywith(
@@ -79,7 +77,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     emit(state.copywith(
       topRatedState: RequestState.isLoading,
     ));
-    final result = await getTopRatedUseCase.execute(page: topRatedPage++);
+    final result = await getTopRatedUseCase( topRatedPage++);
 
     result.fold((l) {
       emit(state.copywith(

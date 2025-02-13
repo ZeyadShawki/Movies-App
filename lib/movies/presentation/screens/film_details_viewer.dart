@@ -2,10 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/core/helpers/extensions/screen_util_extension.dart';
-import 'package:movies/core/helpers/extensions/string_extensions.dart';
-import 'package:movies/core/network/api_constants.dart';
-import 'package:movies/movies/domain/entities/movie.dart';
+
+import '../../../core/helpers/extensions/screen_util_extension.dart';
+import '../../../core/helpers/extensions/string_extensions.dart';
+import '../../../core/network/api_constants.dart';
+import '../../domain/entities/movie.dart';
+import '../widgets/image_loading_error_widget.dart';
 
 mixin FilmDetailsViewer<T extends StatefulWidget> on State<T> {
   bool showFilmDetails = false;
@@ -90,6 +92,8 @@ mixin FilmDetailsViewer<T extends StatefulWidget> on State<T> {
                                     : ApiConstants()
                                         .networkimagemaker(movie?.posterPath),
                                 fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    ImageLoadingErrorWidget(),
                               ),
                             ),
                           ),

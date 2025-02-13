@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:movies/core/helpers/extensions/screen_util_extension.dart';
-import 'package:movies/core/helpers/extensions/string_extensions.dart';
-import 'package:movies/core/theme/animated_fade_widget.dart';
-import 'package:movies/core/theme/app_colors.dart';
+import '../../../core/helpers/extensions/screen_util_extension.dart';
+import '../../../core/helpers/extensions/string_extensions.dart';
+import '../../../core/theme/animated_fade_widget.dart';
+import '../../../core/theme/app_colors.dart';
 
 Future<Map<String, dynamic>?> showQueryParamsBottomSheet(
     BuildContext context, Map<String, dynamic> initialParams) async {
@@ -24,8 +24,6 @@ class QueryParamsBottomSheet extends StatefulWidget {
   @override
   QueryParamsBottomSheetState createState() => QueryParamsBottomSheetState();
 }
-
-
 
 class QueryParamsBottomSheetState extends State<QueryParamsBottomSheet> {
   late bool includeAdult;

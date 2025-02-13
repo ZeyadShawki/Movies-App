@@ -11,6 +11,7 @@ import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/core/utils/enum_movie_state.dart';
 import 'package:movies/movies/presentation/bloc/movie_details_cubit/movie_details_cubit.dart';
 import 'package:movies/movies/presentation/bloc/movie_details_cubit/movie_details_state.dart';
+import 'package:movies/movies/presentation/widgets/image_loading_error_widget.dart';
 
 @RoutePage()
 class MovieDetailsScreen extends StatelessWidget {
@@ -36,10 +37,15 @@ class MovieDetailsScreen extends StatelessWidget {
                       Stack(
                         children: [
                           Image(
-                              width: double.infinity,
-                              image: NetworkImage(ApiConstants()
-                                  .networkimagemaker(
-                                      state.movieDetails.backDropPath))),
+                            width: double.infinity,
+                            image: NetworkImage(
+                              ApiConstants().networkimagemaker(
+                                state.movieDetails.backDropPath,
+                              ),
+                            ),
+                            errorBuilder: (context, error, stackTrace) =>
+                                SizedBox.shrink(),
+                          ),
                           Positioned(
                             left: 20,
                             top: 30,
@@ -270,12 +276,16 @@ class MovieDetailsScreen extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               child: Image(
-                                  fit: BoxFit.fill,
-                                  height: 160,
-                                  width: 100,
-                                  image: NetworkImage(ApiConstants()
-                                      .networkimagemaker(
-                                          state.movieDetails.posterPath))),
+                                fit: BoxFit.fill,
+                                height: 160,
+                                width: 100,
+                                image: NetworkImage(
+                                  ApiConstants().networkimagemaker(
+                                      state.movieDetails.posterPath),
+                                ),
+                                errorBuilder: (context, error, stackTrace) =>
+                                    ImageLoadingErrorWidget(),
+                              ),
                             ),
                           ),
                         ],
@@ -296,7 +306,9 @@ class MovieDetailsScreen extends StatelessWidget {
   // ignore: non_constant_identifier_names
   Widget imageGridView(String? Imagepath) {
     return Image(
-        fit: BoxFit.fill,
-        image: NetworkImage(ApiConstants().networkimagemaker(Imagepath)));
+      fit: BoxFit.fill,
+      image: NetworkImage(ApiConstants().networkimagemaker(Imagepath)),
+      errorBuilder: (context, error, stackTrace) => ImageLoadingErrorWidget(),
+    );
   }
 }

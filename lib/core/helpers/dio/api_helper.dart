@@ -9,10 +9,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart' as injectable;
+import 'package:movies/core/helpers/error/failure.dart';
 import 'package:movies/core/network/api_constants.dart';
 
 import '../error/error_message_model.dart';
-import '../error/server_exception.dart';
 import 'my_dio.dart';
 
 const somethingWentWrong = 'Something went wrong';
@@ -39,7 +39,7 @@ class ApiHelper {
     dio!.interceptors.add(interceptor);
   }
 
-  Future<Either<ServerException, Response>> post(
+  Future<Either<ServerFailure, Response>> post(
           {required String path,
           required Map<String, dynamic> body,
           dynamic headers,
@@ -57,7 +57,7 @@ class ApiHelper {
           return res;
         },
       );
-  Future<Either<ServerException, Response>> delete(
+  Future<Either<ServerFailure, Response>> delete(
     String path, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
@@ -72,7 +72,7 @@ class ApiHelper {
           return res;
         },
       );
-  Future<Either<ServerException, Response>> postForm<T>(
+  Future<Either<ServerFailure, Response>> postForm<T>(
           String path, FormData body,
           {dynamic headers}) async =>
       await (safeApiHelperRequest(
@@ -85,12 +85,12 @@ class ApiHelper {
         ),
       ));
 
-  Future<Either<ServerException, Response>> get<T>({
+  Future<Either<ServerFailure, Response>> get<T>({
     required String path,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? queryParameters,
   }) async =>
-      safeApiHelperRequest(
+     await safeApiHelperRequest(
         () => dio!.get(
           path,
           options: Options(headers: headers),
@@ -98,7 +98,7 @@ class ApiHelper {
         ),
       );
 
-  Future<Either<ServerException, Response>> put(
+  Future<Either<ServerFailure, Response>> put(
     String path,
     HashMap<String, dynamic> body, {
     dynamic headers,
@@ -114,7 +114,7 @@ class ApiHelper {
         },
       );
 
-  Future<Either<ServerException, Response>> safeApiHelperRequest(
+  Future<Either<ServerFailure, Response>> safeApiHelperRequest(
     Future<dynamic> Function() function,
   ) async {
     try {
@@ -126,60 +126,58 @@ class ApiHelper {
         return Right(response);
       } else {
         if (response.statusCode == 401 && response.data['detail'] != null) {
-          return Left(ServerException(
-              errorMessageModel: ErrorMessageModel(
-                  statusCode: response.statusCode,
-                  message: response.data['message'],
-                  success: false)));
+          return Left(ServerFailure(
+              statusCode: response.statusCode,
+              message: response.data['message']));
         }
       }
 
-      return Left(ServerException(
-          errorMessageModel: ErrorMessageModel(
-              statusCode: response.statusCode, message: somethingWentWrong)));
+      return Left(ServerFailure(
+          statusCode: response.statusCode, message: somethingWentWrong));
     } on DioException catch (e) {
       switch (e.type) {
         case DioExceptionType.unknown:
-          return Left(ServerException(
-              errorMessageModel: ErrorMessageModel(
-                  statusCode: e.response?.statusCode,
-                  message: 'server cannot be accessed')));
+          return Left(ServerFailure(
+              statusCode: e.response?.statusCode,
+              message: 'server cannot be accessed'));
 
         case DioExceptionType.badResponse:
           if (e.response?.statusCode == 401) {
             Fluttertoast.showToast(msg: 'UnAuthorized User');
 
-            return Left(ServerException(
-                errorMessageModel: ErrorMessageModel(
-                    statusCode: e.response?.statusCode, message: e.message)));
+            return Left(ServerFailure(
+              statusCode: e.response?.statusCode,
+             message: e.message??''));
           }
           if (e.response != null &&
               e.response!.data != null &&
               e.response!.data != '') {
-            return Left(ServerException(
-                errorMessageModel: ErrorMessageModel(
-                    statusCode: e.response?.statusCode,
-                    message: e.response?.data?['message'])));
+                   return Left(ServerFailure(
+              statusCode: e.response?.statusCode,
+             message: e.response?.data?['message']));
+          
           }
           if (e.response == null || e.response?.statusCode == 404) {
-            return Left(ServerException(
-                errorMessageModel: ErrorMessageModel(
-                    statusCode: e.response?.statusCode,
-                    message: _handleError(e))));
+                return Left(ServerFailure(
+              statusCode: e.response?.statusCode,
+             message: _handleError(e)));
+         
           }
 
           break;
 
         default:
-          return Left(ServerException(
-              errorMessageModel: ErrorMessageModel(
-                  statusCode: e.response?.statusCode,
-                  message: _handleError(e))));
+            return Left(ServerFailure(
+              statusCode: e.response?.statusCode,
+             message:  _handleError(e)));
+ 
       }
-      return Left(ServerException(
-          errorMessageModel: ErrorMessageModel(
-              statusCode: e.response?.statusCode, message: 'Server Error')));
-    }
+          return Left(ServerFailure(
+              statusCode: e.response?.statusCode,
+             message: 'Server Error'));
+
+    } 
+    
   }
 
   String _handleError(DioException error) {

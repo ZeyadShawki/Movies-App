@@ -1,14 +1,15 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
-import 'package:movies/core/helpers/error/failure.dart';
-import 'package:movies/core/helpers/error/server_exception.dart';
-import 'package:movies/core/helpers/network/network_info.dart';
-import 'package:movies/movies/data/remote_data_source/remote_data_source_movie.dart';
-import 'package:movies/movies/domain/entities/movie.dart';
-import 'package:movies/movies/domain/entities/movie_details.dart';
-import 'package:movies/movies/domain/entities/recommended_movie.dart';
+import '../../../core/helpers/error/failure.dart';
+import '../../../core/helpers/network/network_info.dart';
+import '../remote_data_source/remote_data_source_movie.dart';
+import '../../domain/entities/movie.dart';
+import '../../domain/entities/movie_details.dart';
+import '../../domain/entities/recommended_movie.dart';
 
 import 'package:injectable/injectable.dart' as injectable;
-import 'package:movies/movies/domain/reposetry/base_movie_repostery.dart';
+import '../../domain/reposetry/base_movie_repostery.dart';
 
 @injectable.Order(-2)
 @injectable.Singleton(as: BaseMovieRepostery)
@@ -19,57 +20,67 @@ class MovieRepostery extends BaseMovieRepostery {
 
   @override
   Future<Either<Failure, List<Movie>>> getNowPlayingMovies(int? page) async {
-    final result = await remoteDataSource.getNowPlayingMovie(page);
+   
     if (await _networkInfo.isConnected) {
       try {
+            final result = await remoteDataSource.getNowPlayingMovie(page);
+
         return Right(result);
-      } on ServerException catch (failure) {
-        return Left(ServerFailure.fromServerException(failure));
+      } on ServerFailure catch (failure) {
+        log('ssss');
+        return Left(ServerFailure(message:  failure.message));
       }
     } else {
-      return Left(ServerFailure.noInternetConnection());
+        return Left(ServerFailure(message:  noInternetConnection));
     }
   }
 
   @override
   Future<Either<Failure, List<Movie>>> getPopularMovies(int? page) async {
     if (await _networkInfo.isConnected) {
-      final result = await remoteDataSource.getPopularMovie(page);
       try {
+              final result = await remoteDataSource.getPopularMovie(page);
+
         return Right(result);
-      } on ServerException catch (failure) {
-        return Left(ServerFailure.fromServerException(failure));
+    } on ServerFailure catch (failure) {
+        log('ssss');
+        return Left(ServerFailure(message:  failure.message));
       }
     } else {
-      return Left(ServerFailure.noInternetConnection());
+        return Left(ServerFailure(message:  noInternetConnection));
     }
   }
 
   @override
   Future<Either<Failure, List<Movie>>> getTopRatedMovies(int? page) async {
     if (await _networkInfo.isConnected) {
-      final result = await remoteDataSource.getTopRatedMovie(page);
       try {
+              final result = await remoteDataSource.getTopRatedMovie(page);
+
         return Right(result);
-      } on ServerException catch (failure) {
-        return Left(ServerFailure.fromServerException(failure));
+    } on ServerFailure catch (failure) {
+        log('ssss');
+        return Left(ServerFailure(message:  failure.message));
       }
     } else {
-      return Left(ServerFailure.noInternetConnection());
+        return Left(ServerFailure(message:  noInternetConnection));
     }
   }
 
   @override
   Future<Either<Failure, MovieDetails>> getMovieDetails(int id) async {
+   
     if (await _networkInfo.isConnected) {
-      final result = await remoteDataSource.getMovieDetails(id);
       try {
+              final result = await remoteDataSource.getMovieDetails(id);
+
         return Right(result);
-      } on ServerException catch (failure) {
-        return Left(ServerFailure.fromServerException(failure));
+    } on ServerFailure catch (failure) {
+        log('ssss');
+        return Left(ServerFailure(message:  failure.message));
       }
     } else {
-      return Left(ServerFailure.noInternetConnection());
+        return Left(ServerFailure(message:  noInternetConnection));
     }
   }
 
@@ -77,29 +88,34 @@ class MovieRepostery extends BaseMovieRepostery {
   Future<Either<Failure, List<RecommendedMovie>>> getMovieRecommondation(
       int id) async {
     if (await _networkInfo.isConnected) {
-      final result = await remoteDataSource.getRecommendedMovie(id);
       try {
+              final result = await remoteDataSource.getRecommendedMovie(id);
+
         return Right(result);
-      } on ServerException catch (failure) {
-        return Left(ServerFailure.fromServerException(failure));
+    } on ServerFailure catch (failure) {
+        log('ssss');
+        return Left(ServerFailure(message:  failure.message));
       }
     } else {
-      return Left(ServerFailure.noInternetConnection());
+        return Left(ServerFailure(message:  noInternetConnection));
     }
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> searchForMovie( {required Map<String,dynamic> query})async {
+  Future<Either<Failure, List<Movie>>> searchForMovie(
+      {required Map<String, dynamic> query}) async {
     if (await _networkInfo.isConnected) {
-      final result = await remoteDataSource.searchForMovie(query: query);
 
       try {
+              final result = await remoteDataSource.searchForMovie(query: query);
+
         return Right(result);
-      } on ServerException catch (failure) {
-        return Left(ServerFailure.fromServerException(failure));
+    } on ServerFailure catch (failure) {
+        log('ssss');
+        return Left(ServerFailure(message:  failure.message));
       }
     } else {
-      return Left(ServerFailure.noInternetConnection());
+        return Left(ServerFailure(message:  noInternetConnection));
     }
   }
 }

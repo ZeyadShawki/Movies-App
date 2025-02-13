@@ -18,7 +18,7 @@ import 'package:movies/core/helpers/dio/api_helper.dart' as _i1053;
 import 'package:movies/core/helpers/network/network_info.dart' as _i41;
 import 'package:movies/movies/data/remote_data_source/remote_data_source_movie.dart'
     as _i819;
-import 'package:movies/movies/data/repostery/movie_repostery.dart';
+import 'package:movies/movies/data/repostery/movie_repostery.dart' as _i127;
 import 'package:movies/movies/domain/reposetry/base_movie_repostery.dart'
     as _i212;
 import 'package:movies/movies/domain/usecase/get_movie_details_usecase.dart'
@@ -62,18 +62,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i819.BaseMovieRemoteDataSource>(
         () => _i819.MovieRemoteDataSource());
     gh.singleton<_i41.NetworkInfo>(() => _i41.NetworkInfoImpl());
-    gh.singleton<_i212.BaseMovieRepostery>(() => MovieRepostery(
+    gh.singleton<_i212.BaseMovieRepostery>(() => _i127.MovieRepostery(
           gh<_i819.BaseMovieRemoteDataSource>(),
           gh<_i41.NetworkInfo>(),
         ));
+    gh.singleton<_i210.GetMovieDetailsUseCase>(
+        () => _i210.GetMovieDetailsUseCase(gh<_i212.BaseMovieRepostery>()));
     gh.singleton<_i215.GetNowPlayingUseCase>(
         () => _i215.GetNowPlayingUseCase(gh<_i212.BaseMovieRepostery>()));
     gh.singleton<_i758.GetTopRatedUseCase>(
         () => _i758.GetTopRatedUseCase(gh<_i212.BaseMovieRepostery>()));
     gh.singleton<_i639.GetRecommendedMovieUseCase>(
         () => _i639.GetRecommendedMovieUseCase(gh<_i212.BaseMovieRepostery>()));
-    gh.singleton<_i210.GetMovieDetailsUseCase>(
-        () => _i210.GetMovieDetailsUseCase(gh<_i212.BaseMovieRepostery>()));
     gh.singleton<_i327.GetPopularMovieUseCase>(
         () => _i327.GetPopularMovieUseCase(gh<_i212.BaseMovieRepostery>()));
     gh.singleton<_i665.SearchForMovieUseCase>(

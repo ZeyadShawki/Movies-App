@@ -4,18 +4,20 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/core/app-router/app_router.gr.dart';
-import 'package:movies/core/asset_manger/app_string.dart';
-import 'package:movies/core/helpers/di/dependency_config.dart';
-import 'package:movies/core/helpers/extensions/screen_util_extension.dart';
-import 'package:movies/core/helpers/extensions/string_extensions.dart';
-import 'package:movies/core/network/api_constants.dart';
-import 'package:movies/core/theme/app_colors.dart';
-import 'package:movies/core/utils/enum_movie_state.dart';
-import 'package:movies/movies/domain/entities/movie.dart';
-import 'package:movies/movies/presentation/bloc/search_cubit/search_for_movie_cubit.dart';
-import 'package:movies/movies/presentation/screens/film_details_viewer.dart';
-import 'package:movies/movies/presentation/widgets/query_sheet_picker.dart';
+
+import '../../../core/app-router/app_router.gr.dart';
+import '../../../core/asset_manger/app_string.dart';
+import '../../../core/helpers/di/dependency_config.dart';
+import '../../../core/helpers/extensions/screen_util_extension.dart';
+import '../../../core/helpers/extensions/string_extensions.dart';
+import '../../../core/network/api_constants.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/enum_movie_state.dart';
+import '../../domain/entities/movie.dart';
+import '../bloc/search_cubit/search_for_movie_cubit.dart';
+import '../widgets/image_loading_error_widget.dart';
+import '../widgets/query_sheet_picker.dart';
+import 'film_details_viewer.dart';
 
 @RoutePage()
 class SearchedFilmListPage extends StatefulWidget {
@@ -267,6 +269,8 @@ class _SearchedFilmListPageState extends State<SearchedFilmListPage>
                               'https://image.tmdb.org/t/p/w500null'
                           ? 'https://img.freepik.com/free-vector/internet-network-warning-404-error-page-file-found-web-page-internet-error-page-issue-found-network-404-error-present-by-man-sleep-display_1150-55450.jpg?w=740&t=st=1663006046~exp=1663006646~hmac=d14191cc254ee49be9fe5a83ede0836c3e8085c67d04be6746f0d1977ce085bb'
                           : ApiConstants().networkimagemaker(movie.posterPath),
+                      errorBuilder: (context, error, stackTrace) =>
+                          ImageLoadingErrorWidget(),
                     ),
                   ),
                 ),

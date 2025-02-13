@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:movies/core/app-router/app_router.gr.dart';
-import 'package:movies/core/asset_manger/app_string.dart';
-import 'package:movies/core/asset_manger/asset_manger.dart';
-import 'package:movies/core/helpers/di/dependency_config.dart';
-import 'package:movies/core/helpers/extensions/screen_util_extension.dart';
-import 'package:movies/core/helpers/extensions/string_extensions.dart';
-import 'package:movies/core/theme/animated_fade_widget.dart';
-import 'package:movies/core/theme/app_colors.dart';
-import 'package:movies/movies/presentation/bloc/movie_bloc/bloc.dart';
-import 'package:movies/movies/presentation/bloc/movie_bloc/bloc_event.dart';
-import 'package:movies/movies/presentation/bloc/movie_bloc/bloc_state.dart';
-import 'package:movies/movies/presentation/widgets/get_now_playing_banner_widget.dart';
-import 'package:movies/movies/presentation/widgets/get_popular_widget.dart';
-import 'package:movies/movies/presentation/widgets/get_top_rated_widget.dart';
+import '../../../core/app-router/app_router.gr.dart';
+import '../../../core/asset_manger/app_string.dart';
+import '../../../core/asset_manger/asset_manger.dart';
+import '../../../core/helpers/di/dependency_config.dart';
+import '../../../core/helpers/extensions/screen_util_extension.dart';
+import '../../../core/helpers/extensions/string_extensions.dart';
+import '../../../core/theme/animated_fade_widget.dart';
+import '../../../core/theme/app_colors.dart';
+import '../bloc/movie_bloc/bloc.dart';
+import '../bloc/movie_bloc/bloc_event.dart';
+import '../bloc/movie_bloc/bloc_state.dart';
+import '../widgets/get_now_playing_banner_widget.dart';
+import '../widgets/get_popular_widget.dart';
+import '../widgets/get_top_rated_widget.dart';
 
 @RoutePage()
 class FeaturedFilmListPage extends StatelessWidget {

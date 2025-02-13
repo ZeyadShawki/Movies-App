@@ -31,7 +31,7 @@ class SearchForMovieCubit extends Cubit<SearchForMovieState> {
       ));
     }
 
-    final result = await searchForMovieUseCase.execute(query: {
+    final result = await searchForMovieUseCase( {
       ...query,
       'page': page++,
     });

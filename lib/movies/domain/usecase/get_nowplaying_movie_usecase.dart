@@ -1,16 +1,19 @@
 import 'package:dartz/dartz.dart';
-import 'package:movies/core/helpers/error/failure.dart';
-import 'package:movies/movies/domain/entities/movie.dart';
-import 'package:movies/movies/domain/reposetry/base_movie_repostery.dart';
+import 'package:movies/core/helpers/usecase/base_usecase.dart';
+import '../../../core/helpers/error/failure.dart';
+import '../entities/movie.dart';
+import '../reposetry/base_movie_repostery.dart';
 import 'package:injectable/injectable.dart' as injectable;
 
 @injectable.Order(-1)
 @injectable.singleton
-class GetNowPlayingUseCase{
+class GetNowPlayingUseCase   extends BaseUseCase<List<Movie>, int> {
   final BaseMovieRepostery baseMovieRepostery;
 
   GetNowPlayingUseCase(this.baseMovieRepostery);
-  Future<Either<Failure,List<Movie>>> execute({required int? page})async{
-    return await baseMovieRepostery.getNowPlayingMovies(page);
+
+  @override
+  Future<Either<Failure, List<Movie >>> call(int? parameters) async {
+    return await baseMovieRepostery.getNowPlayingMovies(parameters);
   }
 }

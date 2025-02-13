@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:injectable/injectable.dart';
-import 'package:movies/core/app-router/app_router.gr.dart';
+import 'app_router.gr.dart';
 
 //flutter pub run build_runner build --delete-conflicting-outputs
 //flutter packages pub run build_runner watch

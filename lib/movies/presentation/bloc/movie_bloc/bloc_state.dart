@@ -1,10 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:movies/core/utils/enum_movie_state.dart';
+import '../../../../core/utils/enum_movie_state.dart';
 
 import '../../../domain/entities/movie.dart';
 
 class MovieState extends Equatable {
-
   final RequestState nowPlayingState;
   final RequestState popularState;
   final RequestState topRatedState;
@@ -18,7 +17,6 @@ class MovieState extends Equatable {
   final String topRatedMessage;
 
   const MovieState({
- 
     this.nowPlayingState = RequestState.isLoading,
     this.popularState = RequestState.isLoading,
     this.topRatedState = RequestState.isLoading,
@@ -31,7 +29,6 @@ class MovieState extends Equatable {
   });
 
   MovieState copywith({
-
     RequestState? nowPlayingState,
     RequestState? popularState,
     RequestState? topRatedState,
@@ -43,7 +40,6 @@ class MovieState extends Equatable {
     String? topRatedMessage,
   }) {
     return MovieState(
-  
       nowPlayingMovie: nowPlayingMovie ?? this.nowPlayingMovie,
       nowPlayingState: nowPlayingState ?? this.nowPlayingState,
       nowPlayingMessage: nowPlayingMessage ?? this.nowPlayingMessage,
@@ -58,7 +54,6 @@ class MovieState extends Equatable {
 
   @override
   List<Object> get props => [
-
         nowPlayingState,
         popularState,
         topRatedState,

@@ -1,12 +1,13 @@
 import 'package:injectable/injectable.dart' as injectable;
-import 'package:movies/core/helpers/dio/api_helper.dart';
-import 'package:movies/core/network/api_constants.dart';
-import 'package:movies/movies/data/models/movie_detail_model.dart';
-import 'package:movies/movies/data/models/movie_model.dart';
-import 'package:movies/movies/data/models/recommended_movie_model.dart';
-import 'package:movies/movies/domain/entities/movie.dart';
-import 'package:movies/movies/domain/entities/movie_details.dart';
-import 'package:movies/movies/domain/entities/recommended_movie.dart';
+
+import '../../../core/helpers/dio/api_helper.dart';
+import '../../../core/network/api_constants.dart';
+import '../../domain/entities/movie.dart';
+import '../../domain/entities/movie_details.dart';
+import '../../domain/entities/recommended_movie.dart';
+import '../models/movie_detail_model.dart';
+import '../models/movie_model.dart';
+import '../models/recommended_movie_model.dart';
 
 abstract class BaseMovieRemoteDataSource {
   Future<List<Movie>> getNowPlayingMovie(int? page);
@@ -20,8 +21,9 @@ abstract class BaseMovieRemoteDataSource {
 @injectable.Order(-3)
 @injectable.Singleton(as: BaseMovieRemoteDataSource)
 class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
-  @override
-  Future<List<MovieModel>> getNowPlayingMovie(int? page) async {
+ @override
+Future<List<MovieModel>> getNowPlayingMovie(int? page) async {
+  try {
     final response = await ApiHelper().get(
       path: ApiConstants.nowPlayingUrl,
       queryParameters: {
@@ -30,20 +32,26 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
         'language': 'en-US',
         'page': page,
         'sort_by': 'popularity.desc',
-
-        // 'release_date.gte': minDate,
-        // 'release_date.lte': maxDate,
         'with_release_type': '2|3',
       },
     );
 
-    return response.fold((left) {
-      throw left;
-    }, (right) {
-      return List<MovieModel>.from(
-          (right.data['results'] as List).map((e) => MovieModel.fromJson(e)));
-    });
+    return response.fold(
+      (left) {
+        throw left;
+      },
+      (right) {
+        return List<MovieModel>.from(
+          (right.data['results'] as List).map((e) => MovieModel.fromJson(e)),
+        );
+      },
+    );
+  } catch (e) {
+    print('Error in getNowPlayingMovie: $e'); 
+    rethrow; // Ensures error propagates upwards
   }
+}
+
 
   @override
   Future<List<MovieModel>> getPopularMovie(int? page) async {
