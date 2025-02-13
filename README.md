@@ -165,7 +165,7 @@ Ensure you have an .env file in the project root for easier setup. This file is 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/ZeyadShawkiAurora-Movies-Assessment-Flutter.git
+   git clone https://github.com/ZeyadShawki/Aurora-Movies-Assessment-Flutter.git
    ```
 
 2. **Install dependencies:**
@@ -185,6 +185,8 @@ Ensure you have an .env file in the project root for easier setup. This file is 
 Contributions are welcome! Follow these steps to contribute:
 
 1. **Fork the repository.**
+
+
 2. **Create a new branch:**
    ```bash
    git checkout -b feature/YourFeatureName
