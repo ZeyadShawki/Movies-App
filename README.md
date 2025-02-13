@@ -215,7 +215,7 @@ Follow these steps to set up the project:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/Aurora-Movies-Assessment.git
+   git clone https://github.com/ZeyadShawkiAurora-Movies-Assessment-Flutter.git
    ```
 
 2. **Install dependencies:**
