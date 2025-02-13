@@ -137,13 +137,13 @@ This project uses BLoC (Business Logic Component) and Cubit for state management
 
 Uses HomeMoiveBloc to manage state for popular movies, top-rated movies, and recommendations.
 
-Implements pagination using BLoC for handling infinite scrolling.
+Implemented pagination using BLoC for handling infinite scrolling.
 
 - Search Screen:
 
 Uses SearchCubit to handle search queries and manage state for search results.
 
-Implements pagination for efficient data fetching.
+Implemented pagination for efficient data fetching.
 
 - Movie Details Screen:
 
