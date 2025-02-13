@@ -95,7 +95,7 @@ The **Data Layer** is responsible for retrieving and storing data. It implements
 - **Models**: Represents data objects for serialization/deserialization.
 - **Repositories**: Implements repository interfaces from the **Domain Layer**.
 
-### 📌 API Configuration
+## 📌 API Configuration
 
 APIs Used
 
@@ -129,7 +129,7 @@ Shows detailed information about a selected movie, including synopsis, rating, a
 
 Fetches recommended movies for similar content suggestions.
 
-### State Management
+## State Management
 
 This project uses BLoC (Business Logic Component) and Cubit for state management, ensuring efficient handling of API responses, UI updates, and state transitions.
 
