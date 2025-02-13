@@ -1,19 +1,19 @@
-# Movies App With Clean Architecture 
+# ✨ Movies App With Clean Architecture ✨
 
-This project demonstrates the implementation of **Movies App With Clean Architecture** in a Flutter application. The goal is to provide a clear, scalable structure by separating concerns into distinct layers, improving maintainability, testability, and scalability.
+This project demonstrates the implementation of 🎬 Movies App With Clean Architecture in a Flutter application. The goal is to provide a clear, scalable structure by separating concerns into distinct layers, improving maintainability, testability, and scalability.
 
-## ScreenShots
+## 📷 ScreenShots
 
-### Home Screen  
+### 🏠 Home Screen
 <div align="center">
   <img src="https://github.com/user-attachments/assets/6e2fd026-9ac3-4c35-87b1-4d9e05ca2ead" width="200" style="left: 30px;">
   <img src="https://github.com/user-attachments/assets/0e3dcf91-ef79-4c53-ba48-9c08d249248d" width="200">
 </div>
 
-### Search  
+### 🔍 Search
   <img src="https://github.com/user-attachments/assets/854c430b-3f5f-41f7-b1ae-ea12d0f4de9a" width="200">
 
-### Movie details  
+### 👀 Movie Details on Long Press on Search Item
   <img src="https://github.com/user-attachments/assets/133370e5-77fd-496d-b05f-ef24303ec3ab" width="200">
   
 ### Movie details on long press on search item 
@@ -22,26 +22,31 @@ This project demonstrates the implementation of **Movies App With Clean Architec
 
 ## Table of Contents
 
-- [Introduction](#introduction)
+- [Introduction](#✨Introduction)
 - [Project Structure](#project-structure)
 - [Layers](#layers)
   - [Presentation Layer](#presentation-layer)
   - [Domain Layer](#domain-layer)
   - [Data Layer](#data-layer)
-- [Dependencies](#dependencies)
-- [Getting Started](#getting-started)
+- [Getting Started](#🚀-Getting-Started)
 - [Contributing](#contributing)
-- [API-Configuration](#API-Configuration)
+- [API-Configuration](#📂-API-Configuration)
 - [State-Management](#State-Management)
-- [License](#license)
+- [License](#⚖️-License)
 
-## Introduction
+## ✨Introduction
+
+**Clean Architecture** is a software design principle that organizes code into different layers, each with a single responsibility. This separation enhances codebase maintainability, improves testability, and enables scalability. This project adheres to Clean Architecture principles to structure a Flutter application effectively. It utilizes MoviesDB API for fetching movie data and employs BLoC for state management.
+
+
+
+## 🌐 Project Structure
+
 
 **Clean Architecture** is a software design principle that organizes code into different layers, each with a single responsibility. This separation enhances codebase maintainability, improves testability, and enables scalability. This project adheres to Clean Architecture principles to structure a Flutter application effectively.
 
-## Project Structure
-
 The project is divided into three primary layers:
+
 
 ```
 lib/
@@ -95,7 +100,7 @@ The **Data Layer** is responsible for retrieving and storing data. It implements
 - **Models**: Represents data objects for serialization/deserialization.
 - **Repositories**: Implements repository interfaces from the **Domain Layer**.
 
-## 📌 API Configuration
+## 📂 API Configuration
 
 APIs Used
 
@@ -156,7 +161,7 @@ To install dependencies, run:
 flutter pub get
 ```
 
-## Getting Started
+## 🚀 Getting Started
 
 Follow these steps to set up the project:
 
@@ -180,7 +185,7 @@ Ensure you have an .env file in the project root for easier setup. This file is 
    flutter run
    ```
 
-## Contributing
+## 📚 Contributing
 
 Contributions are welcome! Follow these steps to contribute:
 
@@ -202,6 +207,6 @@ Contributions are welcome! Follow these steps to contribute:
 5. **Open a pull request.**
 
 
-## License
+## ⚖️ License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
