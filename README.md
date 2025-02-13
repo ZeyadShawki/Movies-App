@@ -31,8 +31,8 @@ This project demonstrates the implementation of **Movies App With Clean Architec
 - [Dependencies](#dependencies)
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
-- [Contributing](#API-Configuration)
-- [Contributing](#State-Management)
+- [API-Configuration](#API-Configuration)
+- [State-Management](#State-Management)
 - [License](#license)
 
 ## Introduction
