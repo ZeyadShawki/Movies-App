@@ -11,9 +11,7 @@ This project demonstrates the implementation of **Movies App With Clean Architec
 </div>
 
 ### Search  
-<div align="center">
   <img src="https://github.com/user-attachments/assets/854c430b-3f5f-41f7-b1ae-ea12d0f4de9a" width="200">
-</div>
 
 ### Movie details  
   <img src="https://github.com/user-attachments/assets/133370e5-77fd-496d-b05f-ef24303ec3ab" width="200">
