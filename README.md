@@ -2,7 +2,7 @@
 
 This project demonstrates the implementation of 🎬 Movies App With Clean Architecture in a Flutter application. The goal is to provide a clear, scalable structure by separating concerns into distinct layers, improving maintainability, testability, and scalability.
 
-## 📷 ScreenShots
+## 📷 Screenshots
 
 ### 🏠 Home Screen
 <div align="center">
