@@ -47,8 +47,6 @@ dependencies:
   shared_preferences: ^2.5.2
   fluttertoast: ^8.2.12
   flutter_svg: ^2.0.17
-  freezed: ^2.4.1
-  freezed_annotation: ^2.4.1
   svg_path_parser: ^1.1.2
   intl: ^0.20.2
   

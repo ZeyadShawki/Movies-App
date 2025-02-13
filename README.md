@@ -151,12 +151,56 @@ Uses  MovieDetailsCubit Cubit to fetch and manage movie details and recommendati
 
 ## Dependencies
 
+🛠️ Dependencies
+
 This project uses the following dependencies:
 
-- **flutter_bloc**: State management using the BLoC pattern.
-- **dio**: HTTP client for API requests.
-- **get_it**: Dependency injection.
-- **shared_preferences**: Local storage.
+Core Dependencis
+flutter_screenutil: ^5.9.3
+
+auto_route: ^9.3.0+1
+
+get_it: ^8.0.3
+
+equatable: ^2.0.7
+
+dartz: ^0.10.1
+
+dio: ^5.8.0+1
+
+flutter_bloc: ^9.0.0
+
+injectable: ^2.5.0
+
+carousel_slider: ^5.0.0
+
+internet_connection_checker_plus: ^2.7.0
+
+shared_preferences: ^2.5.2
+
+fluttertoast: ^8.2.12
+
+flutter_svg: ^2.0.17
+
+svg_path_parser: ^1.1.2
+
+intl: ^0.20.2
+
+Dev Dependencies
+
+flutter_test
+
+auto_route_generator: ^9.3.1
+
+injectable_generator: ^2.7.0
+
+pretty_dio_logger: ^1.3.1
+
+flutter_dotenv: ^5.2.1
+
+build_runner: ^2.4.15
+
+flutter_lints: ^5.0.0
 
 To install dependencies, run:
 
