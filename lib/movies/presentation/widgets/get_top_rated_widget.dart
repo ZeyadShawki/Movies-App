@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/movies/presentation/widgets/dashboard_error_widget.dart';
+import 'package:movies/movies/presentation/widgets/loading_indicator_widget.dart';
 
 import '../../../core/utils/enum_movie_state.dart';
 import '../bloc/movie_bloc/home_moive_bloc.dart';
@@ -59,9 +60,8 @@ class _GetTopRatedListViewWidgetState extends State<GetTopRatedListViewWidget> {
                           children: [
                             MiniItemWidget(movie: state.topRatedMovie[index]),
                             const SizedBox(
-                              width: 50,
-                              child: Center(child: CircularProgressIndicator()),
-                            ),
+                                width: 50,
+                                child: Center(child: LoadingIndicatorWidget())),
                           ],
                         )
                       : MiniItemWidget(movie: state.topRatedMovie[index]);
@@ -85,11 +85,8 @@ class _GetTopRatedListViewWidgetState extends State<GetTopRatedListViewWidget> {
           );
         } else {
           return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.2,
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+              height: MediaQuery.of(context).size.height * 0.2,
+              child: const Center(child: LoadingIndicatorWidget()));
         }
       },
     );

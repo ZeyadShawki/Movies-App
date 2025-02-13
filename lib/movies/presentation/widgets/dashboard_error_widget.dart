@@ -33,7 +33,7 @@ class DashBoardErrorWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 message.toSubTitle(
-                    fontSize: 18.sp,
+                    fontSize: 18,
                     color: Colors.white,
                     fontWeight: FontWeight.w700),
                 // Spacer(),

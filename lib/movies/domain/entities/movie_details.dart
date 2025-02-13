@@ -14,7 +14,7 @@ class MovieDetails extends Equatable {
   final int runtime;
 
   const MovieDetails({
-     this.backDropPath,
+    this.backDropPath,
     required this.id,
     required this.title,
     required this.overview,

@@ -3,6 +3,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/core/helpers/di/dependency_config.dart';
 import 'package:movies/core/helpers/extensions/string_extensions.dart';
 import 'package:movies/core/network/api_constants.dart';
@@ -12,6 +13,7 @@ import 'package:movies/core/utils/enum_movie_state.dart';
 import 'package:movies/movies/presentation/bloc/movie_details_cubit/movie_details_cubit.dart';
 import 'package:movies/movies/presentation/bloc/movie_details_cubit/movie_details_state.dart';
 import 'package:movies/movies/presentation/widgets/image_loading_error_widget.dart';
+import 'package:movies/movies/presentation/widgets/loading_indicator_widget.dart';
 
 @RoutePage()
 class MovieDetailsScreen extends StatelessWidget {
@@ -38,6 +40,8 @@ class MovieDetailsScreen extends StatelessWidget {
                         children: [
                           Image(
                             width: double.infinity,
+                            height: 250.h,
+                            fit: BoxFit.fill,
                             image: NetworkImage(
                               ApiConstants().networkimagemaker(
                                 state.movieDetails.backDropPath,
@@ -56,9 +60,9 @@ class MovieDetailsScreen extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 30, horizontal: 10),
-                                child: const Icon(
+                                child: Icon(
                                   Icons.arrow_back_ios,
-                                  size: 30,
+                                  size: 30.r,
                                   color: Colors.white,
                                 ),
                               ),
@@ -69,7 +73,7 @@ class MovieDetailsScreen extends StatelessWidget {
                       Stack(
                         children: [
                           Container(
-                            margin: const EdgeInsets.only(top: 190),
+                            margin: EdgeInsets.only(top: 250.h),
                             child: Card(
                               shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
@@ -182,7 +186,7 @@ class MovieDetailsScreen extends StatelessWidget {
                                             fontSize: 15),
                                   ),
                                   SizedBox(
-                                    height: 30,
+                                    height: 30.h,
                                     child: ListView.separated(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 15),
@@ -233,11 +237,18 @@ class MovieDetailsScreen extends StatelessWidget {
                                             physics:
                                                 const BouncingScrollPhysics(),
                                             gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 3,
-                                                    mainAxisExtent: 150,
-                                                    crossAxisSpacing: 5,
-                                                    mainAxisSpacing: 5),
+                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount:
+                                                        MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width >
+                                                                1000
+                                                            ? 4
+                                                            : 3,
+                                                    // mainAxisExtent: 30,
+                                                    childAspectRatio: 1,
+                                                    crossAxisSpacing: 1,
+                                                    mainAxisSpacing: 20),
                                             itemBuilder: (context, int index) {
                                               int currentindex = index;
 
@@ -264,9 +275,7 @@ class MovieDetailsScreen extends StatelessWidget {
                                         )
                                       : const SizedBox(
                                           height: 500,
-                                          child: Center(
-                                              child:
-                                                  CircularProgressIndicator()))
+                                          child: LoadingIndicatorWidget())
                                 ],
                               ),
                             ),
@@ -277,8 +286,8 @@ class MovieDetailsScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                               child: Image(
                                 fit: BoxFit.fill,
-                                height: 160,
-                                width: 100,
+                                height: 200.h,
+                                width: 120.w,
                                 image: NetworkImage(
                                   ApiConstants().networkimagemaker(
                                       state.movieDetails.posterPath),
@@ -296,7 +305,8 @@ class MovieDetailsScreen extends StatelessWidget {
           } else {
             return Scaffold(
                 backgroundColor: AppColors.blackPrimary1,
-                body: const Center(child: CircularProgressIndicator()));
+                body: const Center(                                          child: LoadingIndicatorWidget())
+            );
           }
         },
       ),
@@ -306,7 +316,7 @@ class MovieDetailsScreen extends StatelessWidget {
   // ignore: non_constant_identifier_names
   Widget imageGridView(String? Imagepath) {
     return Image(
-      fit: BoxFit.fill,
+      // fit: BoxFit.fill,
       image: NetworkImage(ApiConstants().networkimagemaker(Imagepath)),
       errorBuilder: (context, error, stackTrace) => ImageLoadingErrorWidget(),
     );

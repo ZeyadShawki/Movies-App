@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/movies/presentation/widgets/dashboard_error_widget.dart';
+import 'package:movies/movies/presentation/widgets/loading_indicator_widget.dart';
 
 import '../../../core/app-router/app_router.gr.dart';
 import '../../../core/asset_manger/app_string.dart';
@@ -72,46 +73,47 @@ class _SearchedFilmListPageState extends State<SearchedFilmListPage>
           return Scaffold(
             backgroundColor: AppColors.blackPrimary1,
             appBar: AppBar(
+              toolbarHeight: 80.h,
               automaticallyImplyLeading:
                   false, // Disables the default back button
 
               leading: IconButton(
                 icon: Padding(
                   padding: const EdgeInsets.only(left: 20.0),
-                  child: Icon(Icons.arrow_back_ios, color: Colors.white),
+                  child: Icon(
+                      size: 30.r, Icons.arrow_back_ios, color: Colors.white),
                 ),
                 onPressed: () => context.router.maybePop(),
               ),
               actions: [
-                IconButton(
-                  icon: Icon(Icons.filter_list, color: Colors.white),
-                  onPressed: () async {
-                    final q = await showQueryParamsBottomSheet(context, query);
-                    if (q != null) {
-                      query = q;
-                      searchCubit.searchForMovie(
-                          query: {...query, 'query': _searchController.text});
-                    }
-                  },
+                Padding(
+                  padding: REdgeInsets.only(right: 20.0),
+                  child: IconButton(
+                    icon: Icon(
+                        size: 30.r, Icons.filter_list, color: Colors.white),
+                    onPressed: () async {
+                      final q =
+                          await showQueryParamsBottomSheet(context, query);
+                      if (q != null) {
+                        query = q;
+                        searchCubit.searchForMovie(
+                            query: {...query, 'query': _searchController.text});
+                      }
+                    },
+                  ),
                 ),
               ],
               backgroundColor: AppColors.blackPrimary1,
               elevation: 0,
-              title: Container(
-                height: 40.h,
-                decoration: BoxDecoration(
-                  color: AppColors.blackPrimary2,
-                  borderRadius: BorderRadius.circular(20),
-                ),
+              title: Center(
                 child: TextFormField(
-                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 16.sp),
                   validator: (value) {
-                    // ignore: unnecessary_null_comparison
-                    if (value!.isEmpty && value != null) {
+                    if (value == null || value.isEmpty) {
                       return 'Please type the movie name';
-                    } else {
-                      return null;
                     }
+                    return null;
                   },
                   controller: _searchController,
                   onChanged: (String value) {
@@ -121,10 +123,22 @@ class _SearchedFilmListPageState extends State<SearchedFilmListPage>
                   },
                   decoration: InputDecoration(
                     hintText: AppStrings.featuredFilms,
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.search, color: Colors.grey),
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
+                    ),
+                    prefixIcon: Padding(
+                      padding: REdgeInsets.only(left: 10.0),
+                      child: Icon(Icons.search, size: 30.r, color: Colors.grey),
+                    ),
                     labelStyle: TextStyle(color: Colors.white),
+                    filled: true,
+                    fillColor: AppColors.blackPrimary2, // Background color
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50), // Rounded border
+                      borderSide: BorderSide.none, // No border outline
+                    ),
+                    contentPadding: EdgeInsets.only(
+                        right: 40, top: 10, bottom: 10), // Adjust height
                   ),
                 ),
               ),
@@ -159,11 +173,10 @@ class _SearchedFilmListPageState extends State<SearchedFilmListPage>
                                               movie: state.searchList[index],
                                             ),
                                             const SizedBox(
-                                              width: 50,
-                                              child: Center(
-                                                  child:
-                                                      CircularProgressIndicator()),
-                                            ),
+                                                width: 50,
+                                                child: Center(
+                                                    child:
+                                                        LoadingIndicatorWidget())),
                                           ],
                                         )
                                       : searchItemWidget(
@@ -204,16 +217,14 @@ class _SearchedFilmListPageState extends State<SearchedFilmListPage>
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Icon(
                                     (Icons.movie_creation_outlined),
-                                    size: 100,
+                                    size: 100.r,
                                     color: Colors.white,
                                   ),
-                                  Text(
-                                    'Start Search',
-                                    style: TextStyle(color: Colors.white),
-                                  )
+                                  'Start Search'
+                                      .toSubTitle(color: Colors.white),
                                 ],
                               ),
                             ))
@@ -232,7 +243,7 @@ class _SearchedFilmListPageState extends State<SearchedFilmListPage>
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.8,
                             child: const Center(
-                                child: CircularProgressIndicator()))
+                                                                      child: LoadingIndicatorWidget()))
                       } else if (state.searchState == RequestState.isLoading &&
                           state.searchList.isEmpty) ...{
                         SizedBox(
@@ -268,7 +279,7 @@ class _SearchedFilmListPageState extends State<SearchedFilmListPage>
             Row(
               children: [
                 Container(
-                  height: 120.h,
+                  height: 130.h,
                   width: 80.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.r),
@@ -288,7 +299,7 @@ class _SearchedFilmListPageState extends State<SearchedFilmListPage>
                 20.toSizedBox,
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * .5,
-                  height: 120.h,
+                  height: 130.h,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -296,14 +307,14 @@ class _SearchedFilmListPageState extends State<SearchedFilmListPage>
                         child: (movie.title ?? '').toSubTitle(
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          fontSize: 18.sp,
+                          fontSize: 20,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       10.toSizedBox,
                       (movie.overview ?? '').toSubTitle(
                         maxLines: 2,
-                        fontSize: 14.sp,
+                        fontSize: 10,
                         color: Colors.grey,
                         fontWeight: FontWeight.w300,
                       ),

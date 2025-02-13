@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+
 import '../../../core/app-router/app_router.gr.dart';
 import '../../../core/asset_manger/app_string.dart';
 import '../../../core/asset_manger/asset_manger.dart';
@@ -47,7 +48,6 @@ class FeaturedFilmListPage extends StatelessWidget {
                   //banner
                   const BannerWidget(),
 
-                  10.toSizedBox,
                   AnimatedFadeWidget(
                     onTap: () {
                       context.router.push(SearchedFilmListRoute());
@@ -55,9 +55,9 @@ class FeaturedFilmListPage extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                           color: AppColors.blackPrimary2,
-                          borderRadius: BorderRadius.circular(30)),
+                          borderRadius: BorderRadius.circular(50)),
                       padding:
-                          REdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          REdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,6 +65,8 @@ class FeaturedFilmListPage extends StatelessWidget {
                         children: [
                           SvgPicture.asset(
                             AssetManger.searchIcon,
+                            width: 20.r,
+                            height: 20.r,
                             colorFilter:
                                 ColorFilter.mode(Colors.grey, BlendMode.srcIn),
                           ),

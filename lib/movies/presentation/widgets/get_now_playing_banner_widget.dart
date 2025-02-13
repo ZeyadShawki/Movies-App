@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/core/app-router/app_router.gr.dart';
 import 'package:movies/core/theme/animated_fade_widget.dart';
 import 'package:movies/movies/presentation/widgets/dashboard_error_widget.dart';
+import 'package:movies/movies/presentation/widgets/loading_indicator_widget.dart';
 
 import '../../../core/asset_manger/app_string.dart';
 import '../../../core/helpers/extensions/screen_util_extension.dart';
@@ -83,8 +84,10 @@ class BannerWidget extends StatelessWidget {
                     ),
                     state.nowPlayingMovie[index].title.toString().toSubTitle(
                         color: Colors.white,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         fontWeight: FontWeight.w500,
-                        fontSize: 25),
+                        fontSize: 23),
                     10.toSizedBox,
                     SizedBox(
                       width: 200.w,
@@ -115,7 +118,7 @@ class BannerWidget extends StatelessWidget {
 
                   viewportFraction: .7, //
                   scrollDirection: Axis.horizontal,
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.65,
                   autoPlay: true,
                   enableInfiniteScroll: true,
                   autoPlayAnimationDuration: const Duration(milliseconds: 800),
@@ -126,7 +129,7 @@ class BannerWidget extends StatelessWidget {
           } else if (state.nowPlayingState == RequestState.isLoading) {
             return SizedBox(
                 height: MediaQuery.of(context).size.height * 0.4,
-                child: const Center(child: CircularProgressIndicator()));
+                child: LoadingIndicatorWidget());
           } else {
             return DashBoardErrorWidget(
               message: state.nowPlayingMessage,

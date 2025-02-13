@@ -21,6 +21,8 @@ class SearchForMovieCubit extends Cubit<SearchForMovieState> {
   int page = 1;
 
   void searchForMovie({required Map<String, dynamic> query}) async {
+    if (state.query['query'] == '') return;
+
     if (jsonEncode(state.query) != jsonEncode(query)) {
       page = 1;
 
@@ -31,7 +33,7 @@ class SearchForMovieCubit extends Cubit<SearchForMovieState> {
       ));
     }
 
-    final result = await searchForMovieUseCase( {
+    final result = await searchForMovieUseCase({
       ...query,
       'page': page++,
     });

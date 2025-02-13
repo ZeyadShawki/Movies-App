@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/app-router/app_router.gr.dart';
 import '../../../core/network/api_constants.dart';
@@ -18,8 +19,8 @@ class MiniItemWidget extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
         child: Image(
-          width: 150,
-          height: 300,
+          width: 150.w,
+          height: 300.h,
           fit: BoxFit.fill,
           image: NetworkImage(
             ApiConstants().networkimagemaker(movie.posterPath),
