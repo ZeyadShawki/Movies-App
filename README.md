@@ -3,20 +3,23 @@
 This project demonstrates the implementation of **Movies App With Clean Architecture** in a Flutter application. The goal is to provide a clear, scalable structure by separating concerns into distinct layers, improving maintainability, testability, and scalability.
 
 ## ScreenShots
-### Home Screen 
-![Simulator Screenshot - iPhone 16 - 2025-02-13 at 19 05 30](https://github.com/user-attachments/assets/6e2fd026-9ac3-4c35-87b1-4d9e05ca2ead)
 
-![Simulator Screenshot - iPhone 16 - 2025-02-13 at 19 05 34](https://github.com/user-attachments/assets/0e3dcf91-ef79-4c53-ba48-9c08d249248d)
+### Home Screen  
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/6e2fd026-9ac3-4c35-87b1-4d9e05ca2ead" width="200">
+  <img src="https://github.com/user-attachments/assets/0e3dcf91-ef79-4c53-ba48-9c08d249248d" width="200">
+</div>
 
-### Search 
-![Simulator Screenshot - iPhone 16 - 2025-02-13 at 19 08 27](https://github.com/user-attachments/assets/854c430b-3f5f-41f7-b1ae-ea12d0f4de9a)
+### Search  
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/854c430b-3f5f-41f7-b1ae-ea12d0f4de9a" width="200">
+</div>
 
-### Movie details 
-![Simulator Screenshot - iPhone 16 - 2025-02-13 at 19 05 43](https://github.com/user-attachments/assets/133370e5-77fd-496d-b05f-ef24303ec3ab)
-
-### Movie details on long press on search item 
-![Simulator Screenshot - iPhone 16 - 2025-02-13 at 19 09 23](https://github.com/user-attachments/assets/c787040d-edc4-46d4-8c88-670a4061f50c)
-
+### Movie details  
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/133370e5-77fd-496d-b05f-ef24303ec3ab" width="200">
+  <img src="https://github.com/user-attachments/assets/c787040d-edc4-46d4-8c88-670a4061f50c" width="200">
+</div>
 
 ## Table of Contents
 
