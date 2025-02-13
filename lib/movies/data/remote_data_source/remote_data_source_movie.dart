@@ -23,7 +23,7 @@ abstract class BaseMovieRemoteDataSource {
 class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
  @override
 Future<List<MovieModel>> getNowPlayingMovie(int? page) async {
-  try {
+
     final response = await ApiHelper().get(
       path: ApiConstants.nowPlayingUrl,
       queryParameters: {
@@ -46,10 +46,7 @@ Future<List<MovieModel>> getNowPlayingMovie(int? page) async {
         );
       },
     );
-  } catch (e) {
-    print('Error in getNowPlayingMovie: $e'); 
-    rethrow; // Ensures error propagates upwards
-  }
+ 
 }
 
 

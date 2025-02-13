@@ -12,7 +12,6 @@ import 'package:injectable/injectable.dart' as injectable;
 import 'package:movies/core/helpers/error/failure.dart';
 import 'package:movies/core/network/api_constants.dart';
 
-import '../error/error_message_model.dart';
 import 'my_dio.dart';
 
 const somethingWentWrong = 'Something went wrong';

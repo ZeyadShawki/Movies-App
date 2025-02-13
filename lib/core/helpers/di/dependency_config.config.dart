@@ -11,7 +11,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
-import 'package:movies/core/app-preferances/app_preferances.dart' as _i572;
 import 'package:movies/core/app-router/app_router.dart' as _i640;
 import 'package:movies/core/helpers/di/register_module.dart' as _i309;
 import 'package:movies/core/helpers/dio/api_helper.dart' as _i1053;
@@ -57,8 +56,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.prefs,
       preResolve: true,
     );
-    gh.lazySingleton<_i572.AppPreferences>(() =>
-        _i572.AppPreferences(sharedPreferences: gh<_i460.SharedPreferences>()));
     gh.factory<_i1053.ApiHelper>(() => _i1053.ApiHelper());
     gh.singleton<_i819.BaseMovieRemoteDataSource>(
         () => _i819.MovieRemoteDataSource());
