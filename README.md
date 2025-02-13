@@ -218,19 +218,13 @@ Follow these steps to set up the project:
    git clone https://github.com/your-username/Aurora-Movies-Assessment.git
    ```
 
-2. **Navigate to the project directory:**
-
-   ```bash
-   cd flutter-clean-architecture
-   ```
-
-3. **Install dependencies:**
+2. **Install dependencies:**
 
    ```bash
    flutter pub get
    ```
 
-4. **Run the application:**
+3. **Run the application:**
 
    ```bash
    flutter run
