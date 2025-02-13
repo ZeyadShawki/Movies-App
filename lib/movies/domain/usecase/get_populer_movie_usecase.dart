@@ -10,7 +10,7 @@ class GetPopularMovieUseCase{
   final BaseMovieRepostery baseMovieRepostery;
 
   GetPopularMovieUseCase(this.baseMovieRepostery);
-  Future<Either<Failure,List<Movie>>>execute()async{
-    return await baseMovieRepostery.getPopularMovies();
+  Future<Either<Failure,List<Movie>>>execute({required int? page})async{
+    return await baseMovieRepostery.getPopularMovies(page);
   }
 }

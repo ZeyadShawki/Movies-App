@@ -11,7 +11,7 @@ class GetTopRatedUseCase{
   final BaseMovieRepostery baseMovieRepostery;
 
   GetTopRatedUseCase(this.baseMovieRepostery);
-  Future<Either<Failure,List<Movie>>> execute()async{
-    return await baseMovieRepostery.getTopRatedMovies();
+  Future<Either<Failure,List<Movie>>> execute({required int? page})async{
+    return await baseMovieRepostery.getTopRatedMovies(page);
   }
 }

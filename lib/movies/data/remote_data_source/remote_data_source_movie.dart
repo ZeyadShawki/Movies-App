@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart' as injectable;
 import 'package:movies/core/helpers/dio/api_helper.dart';
 import 'package:movies/core/network/api_constants.dart';
 import 'package:movies/movies/data/models/movie_detail_model.dart';
@@ -6,23 +7,34 @@ import 'package:movies/movies/data/models/recommended_movie_model.dart';
 import 'package:movies/movies/domain/entities/movie.dart';
 import 'package:movies/movies/domain/entities/movie_details.dart';
 import 'package:movies/movies/domain/entities/recommended_movie.dart';
-import 'package:injectable/injectable.dart' as injectable;
 
 abstract class BaseMovieRemoteDataSource {
-  Future<List<Movie>> getNowPlayingMovie();
-  Future<List<Movie>> getPopularMovie();
-  Future<List<Movie>> getTopRatedMovie();
+  Future<List<Movie>> getNowPlayingMovie(int? page);
+  Future<List<Movie>> getPopularMovie(int? page);
+  Future<List<Movie>> getTopRatedMovie(int? page);
   Future<MovieDetails> getMovieDetails(int id);
   Future<List<RecommendedMovie>> getRecommendedMovie(int id);
-  Future<List<Movie>> searchForMovie(String query);
+  Future<List<Movie>> searchForMovie({required Map<String, dynamic> query});
 }
+
 @injectable.Order(-3)
 @injectable.Singleton(as: BaseMovieRemoteDataSource)
 class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
   @override
-  Future<List<MovieModel>> getNowPlayingMovie() async {
+  Future<List<MovieModel>> getNowPlayingMovie(int? page) async {
     final response = await ApiHelper().get(
-      path: ApiConstants.getNowPlayingUrl,
+      path: ApiConstants.nowPlayingUrl,
+      queryParameters: {
+        'include_adult': false,
+        'include_video': false,
+        'language': 'en-US',
+        'page': page,
+        'sort_by': 'popularity.desc',
+
+        // 'release_date.gte': minDate,
+        // 'release_date.lte': maxDate,
+        'with_release_type': '2|3',
+      },
     );
 
     return response.fold((left) {
@@ -34,9 +46,19 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
   }
 
   @override
-  Future<List<MovieModel>> getPopularMovie() async {
+  Future<List<MovieModel>> getPopularMovie(int? page) async {
     final response = await ApiHelper().get(
-      path: ApiConstants.getPopularUrl,
+      path: ApiConstants.popularUrl,
+      queryParameters: {
+        'include_adult': false,
+        'include_video': false,
+        'language': 'en-US',
+        'page': page,
+        'sort_by': 'popularity.desc',
+        'release_date.gte': '2023-1-1',
+        'release_date.lte': ' 2024-12-30',
+        'with_release_type': '2|3',
+      },
     );
 
     return response.fold((left) {
@@ -48,9 +70,16 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
   }
 
   @override
-  Future<List<MovieModel>> getTopRatedMovie() async {
+  Future<List<MovieModel>> getTopRatedMovie(int? page) async {
     final response = await ApiHelper().get(
-      path: ApiConstants.getTopRatedUrl,
+      path: ApiConstants.topRatedUrl,
+      queryParameters: {
+        'include_adult': false,
+        'include_video': false,
+        'language': 'en-US',
+        'page': page,
+        'sort_by': 'popularity.desc',
+      },
     );
 
     return response.fold((left) {
@@ -65,6 +94,9 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
   Future<MovieDetailsModel> getMovieDetails(int id) async {
     final response = await ApiHelper().get(
       path: ApiConstants().movieDetailsPathMaker(id),
+      queryParameters: {
+        'language': 'en-US',
+      },
     );
 
     return response.fold((left) {
@@ -76,8 +108,12 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
 
   @override
   Future<List<RecommendedMovieModel>> getRecommendedMovie(int id) async {
-    final response = await ApiHelper()
-        .get(path: ApiConstants().movieRecemondationPathMaker(id));
+    final response = await ApiHelper().get(
+      path: ApiConstants().movieRecemondationPathMaker(id),
+      queryParameters: {
+        'language': 'en-US',
+      },
+    );
 
     return response.fold((left) {
       throw left;
@@ -88,16 +124,17 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
   }
 
   @override
-  Future<List<MovieModel>> searchForMovie(String query) async {
-
-       final response = await ApiHelper()
-        .get(path: ApiConstants().searchForQueryPathMaker(query));
+  Future<List<MovieModel>> searchForMovie(
+      {required Map<String, dynamic> query}) async {
+    final response = await ApiHelper().get(
+        path: ApiConstants.searchForQueryPathMaker,
+        queryParameters: {'language': 'en-US', ...query});
 
     return response.fold((left) {
       throw left;
     }, (right) {
-        return List<MovieModel>.from((right.data['results'] as List)
-          .map((e) => MovieModel.fromJson(e)));
+      return List<MovieModel>.from(
+          (right.data['results'] as List).map((e) => MovieModel.fromJson(e)));
     });
   }
 }

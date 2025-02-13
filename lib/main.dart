@@ -1,25 +1,27 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/core/app-router/app_router.dart';
 import 'package:movies/core/helpers/di/dependency_config.dart';
 
-void main() async{
-    await dotenv.load();
+void main() async {
+  await dotenv.load();
 
-    await configureDependencies();
+  await configureDependencies();
 
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
+  MyApp({super.key});
   final appRouter = getIt<AppRouter>();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  ScreenUtilInit(
+    return ScreenUtilInit(
       designSize: const Size(393, 852),
       builder: (_, __) {
         return MaterialApp.router(
@@ -39,12 +41,10 @@ class MyApp extends StatelessWidget {
           ),
           routerDelegate: appRouter.delegate(),
           routeInformationParser: appRouter.defaultRouteParser(),
-    
-        // home: TestDummyScreen(),
-      );
-    },
-        
+
+          // home: TestDummyScreen(),
         );
-          
+      },
+    );
   }
 }

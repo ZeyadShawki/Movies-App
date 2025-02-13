@@ -6,9 +6,9 @@ import 'package:movies/movies/data/remote_data_source/remote_data_source_movie.d
 import 'package:movies/movies/domain/entities/movie.dart';
 import 'package:movies/movies/domain/entities/movie_details.dart';
 import 'package:movies/movies/domain/entities/recommended_movie.dart';
-import 'package:movies/movies/domain/reposetry/base_movie_repostery.dart';
 
 import 'package:injectable/injectable.dart' as injectable;
+import 'package:movies/movies/domain/reposetry/base_movie_repostery.dart';
 
 @injectable.Order(-2)
 @injectable.Singleton(as: BaseMovieRepostery)
@@ -18,8 +18,8 @@ class MovieRepostery extends BaseMovieRepostery {
   MovieRepostery(this.remoteDataSource, this._networkInfo);
 
   @override
-  Future<Either<Failure, List<Movie>>> getNowPlayingMovies() async {
-    final result = await remoteDataSource.getNowPlayingMovie();
+  Future<Either<Failure, List<Movie>>> getNowPlayingMovies(int? page) async {
+    final result = await remoteDataSource.getNowPlayingMovie(page);
     if (await _networkInfo.isConnected) {
       try {
         return Right(result);
@@ -32,9 +32,9 @@ class MovieRepostery extends BaseMovieRepostery {
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> getPopularMovies() async {
+  Future<Either<Failure, List<Movie>>> getPopularMovies(int? page) async {
     if (await _networkInfo.isConnected) {
-      final result = await remoteDataSource.getPopularMovie();
+      final result = await remoteDataSource.getPopularMovie(page);
       try {
         return Right(result);
       } on ServerException catch (failure) {
@@ -46,9 +46,9 @@ class MovieRepostery extends BaseMovieRepostery {
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> getTopRatedMovies() async {
+  Future<Either<Failure, List<Movie>>> getTopRatedMovies(int? page) async {
     if (await _networkInfo.isConnected) {
-      final result = await remoteDataSource.getTopRatedMovie();
+      final result = await remoteDataSource.getTopRatedMovie(page);
       try {
         return Right(result);
       } on ServerException catch (failure) {
@@ -89,9 +89,9 @@ class MovieRepostery extends BaseMovieRepostery {
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> searchForMovie(String query) async {
+  Future<Either<Failure, List<Movie>>> searchForMovie( {required Map<String,dynamic> query})async {
     if (await _networkInfo.isConnected) {
-      final result = await remoteDataSource.searchForMovie(query);
+      final result = await remoteDataSource.searchForMovie(query: query);
 
       try {
         return Right(result);

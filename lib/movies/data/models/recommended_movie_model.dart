@@ -6,7 +6,7 @@ class RecommendedMovieModel extends RecommendedMovie {
       { required super.overview,
       required super.title,
       required super.id,
-      required super.backdropPath,
+       super.backdropPath,
         required super.posterPath,
       });
 

@@ -5,8 +5,8 @@ import 'dart:collection';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart' as injectable;
 import 'package:movies/core/network/api_constants.dart';
@@ -24,7 +24,10 @@ class ApiHelper {
   ApiHelper() {
     dio!.options.baseUrl = ApiConstants.baseUrl;
     final apiKey = dotenv.env['MD_API_Key'];
-    dio!.options.queryParameters = {'api_key': apiKey};
+    // dio!.options.queryParameters = {'api_key': apiKey};
+
+    dio!.options.headers["Authorization"] = "Bearer $apiKey";
+
     var interceptor = InterceptorsWrapper(
       onRequest: (req, handler) async {
         handler.next(req);

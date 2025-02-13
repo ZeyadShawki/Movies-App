@@ -10,7 +10,7 @@ class GetNowPlayingUseCase{
   final BaseMovieRepostery baseMovieRepostery;
 
   GetNowPlayingUseCase(this.baseMovieRepostery);
-  Future<Either<Failure,List<Movie>>> execute()async{
-    return await baseMovieRepostery.getNowPlayingMovies();
+  Future<Either<Failure,List<Movie>>> execute({required int? page})async{
+    return await baseMovieRepostery.getNowPlayingMovies(page);
   }
 }

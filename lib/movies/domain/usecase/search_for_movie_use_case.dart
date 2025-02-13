@@ -11,7 +11,8 @@ import 'package:injectable/injectable.dart' as injectable;
 
   SearchForMovieUseCase(this.baseMovieRepostery);
 
-  Future<Either<Failure,List<Movie>>> execute(String query)async{
-    return await baseMovieRepostery.searchForMovie(query);
+  Future<Either<Failure,List<Movie>>> execute( {required Map<String,dynamic> query})
+  async{
+    return await baseMovieRepostery.searchForMovie(query: query,);
 }
 }

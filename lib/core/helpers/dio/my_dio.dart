@@ -31,19 +31,19 @@ class DioClient {
         },
       ),
     );
-if(kDebugMode) {
-  dio.interceptors.addAll([
-      PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: true,
-        error: true,
-        compact: true,
-        maxWidth: 90,
-      ),
-    ]);
-}
+    if (kDebugMode) {
+      dio.interceptors.addAll([
+        PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: true,
+          error: true,
+          compact: true,
+          maxWidth: 90,
+        ),
+      ]);
+    }
 
     return dio;
   }

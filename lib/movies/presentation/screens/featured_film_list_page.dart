@@ -1,12 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:movies/core/app-router/app_router.gr.dart';
 import 'package:movies/core/asset_manger/app_string.dart';
 import 'package:movies/core/asset_manger/asset_manger.dart';
+import 'package:movies/core/helpers/di/dependency_config.dart';
 import 'package:movies/core/helpers/extensions/screen_util_extension.dart';
 import 'package:movies/core/helpers/extensions/string_extensions.dart';
+import 'package:movies/core/theme/animated_fade_widget.dart';
 import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/movies/presentation/bloc/movie_bloc/bloc.dart';
+import 'package:movies/movies/presentation/bloc/movie_bloc/bloc_event.dart';
+import 'package:movies/movies/presentation/bloc/movie_bloc/bloc_state.dart';
+import 'package:movies/movies/presentation/widgets/get_now_playing_banner_widget.dart';
+import 'package:movies/movies/presentation/widgets/get_popular_widget.dart';
+import 'package:movies/movies/presentation/widgets/get_top_rated_widget.dart';
 
 @RoutePage()
 class FeaturedFilmListPage extends StatelessWidget {
@@ -14,63 +24,128 @@ class FeaturedFilmListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.blackPrimary1,
-      body: SafeArea(
-        child: Column(
-          children: [
-            70.toSizedBox,
-            AppStrings.featuredFilms
-                .toSubTitle(fontSize: 24, fontWeight: FontWeight.w600),
-            40.toSizedBox,
-            Container(
-              height: 350.h,
-              width: 230.w,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(25),
-                child: Image.network(
-                  'https://dummyimage.com/466x310/000/fff',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            20.toSizedBox,
-            AppStrings.featuredFilms
-                .toSubTitle(fontSize: 18, fontWeight: FontWeight.w600),
-            10.toSizedBox,
-            AppStrings.featuredFilms.toSubTitle(
-                fontSize: 14, color: Colors.grey, fontWeight: FontWeight.w300),
-            60.toSizedBox,
-            Container(
-              decoration: BoxDecoration(
-                  color: AppColors.blackPrimary2,
-                  borderRadius: BorderRadius.circular(30)),
-              padding: REdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+    return BlocProvider<MovieBloc>(
+      create: (context) {
+        return getIt<MovieBloc>()
+          ..add(GetNowPlayingEvent())
+          ..add(GetPopularEvent())
+          ..add(GetTopRatedEvent());
+      },
+      child: BlocConsumer<MovieBloc, MovieState>(
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: AppColors.blackPrimary1,
+            body: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
                 children: [
-                  SvgPicture.asset(
-                    AssetManger.iconsPath,
-                    colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+                  70.toSizedBox,
+                  AppStrings.featuredFilms
+                      .toSubTitle(fontSize: 24, fontWeight: FontWeight.w600),
+                  40.toSizedBox,
+
+                  //banner
+                  const BannerWidget(),
+
+                  10.toSizedBox,
+                  AnimatedFadeWidget(
+                    onTap: () {
+                      context.router.push(SearchedFilmListRoute());
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: AppColors.blackPrimary2,
+                          borderRadius: BorderRadius.circular(30)),
+                      padding:
+                          REdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            AssetManger.searchIcon,
+                            colorFilter:
+                                ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+                          ),
+                          10.toSizedBoxHorizontal,
+                          AppStrings.search.toSubTitle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.grey)
+                        ],
+                      ),
+                    ),
                   ),
-                  Icon(
-                    Icons.search,
-                    color: Colors.grey,
+
+                  // popular see more
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0, vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                            onTap: () => context
+                                .read<MovieBloc>()
+                                .add(GetNowPlayingEvent()),
+                            child: AppStrings.popular.toSubTitle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700)),
+                        Row(
+                          children: [
+                            AppStrings.seeMore.toSubTitle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700),
+                            Icon(
+                              Icons.arrow_forward_ios_sharp,
+                              color: Colors.white,
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                  'Search'.toSubTitle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.grey)
+                  // popluer  list view
+                  const GetPopularListViewWidget(),
+                  // toprated see more
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0, vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppStrings.topRated.toSubTitle(
+                            color: Colors.white, fontWeight: FontWeight.w700),
+                        Row(
+                          children: const [
+                            Text(
+                              AppStrings.seeMore,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios_sharp,
+                              color: Colors.white,
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  // toprated  list view
+
+                  const GetTopRatedListViewWidget(),
+
+                  50.toSizedBox,
                 ],
               ),
             ),
-          ],
-        ),
+          );
+        },
+        listener: (context, state) {},
       ),
     );
   }
