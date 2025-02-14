@@ -13,7 +13,7 @@ This project demonstrates the implementation of 🎬 Movies App With Clean Archi
 ### 🔍 Search
   <img src="https://github.com/user-attachments/assets/854c430b-3f5f-41f7-b1ae-ea12d0f4de9a" width="200">
 
-### 👀 Movie Details on Long Press on Search Item
+### 👀 Movie Details Page
   <img src="https://github.com/user-attachments/assets/133370e5-77fd-496d-b05f-ef24303ec3ab" width="200">
   
 ### Movie details on long press on search item 
