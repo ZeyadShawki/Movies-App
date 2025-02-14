@@ -77,7 +77,7 @@ lib/
 ## Layers
 
 ### layers and Logic implemented
-<img src="https://github.com/user-attachments/assets/3cb83218-5aa0-431e-b138-d6bd6d24b03a" width="200">
+<img src="https://github.com/user-attachments/assets/3cb83218-5aa0-431e-b138-d6bd6d24b03a" width="300">
 
 
 ### Presentation Layer
