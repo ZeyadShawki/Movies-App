@@ -76,6 +76,12 @@ lib/
 
 ## Layers
 
+### Movie details on long press on search item 
+  <img src="https://github.com/user-attachments/assets/c787040d-edc4-46d4-8c88-670a4061f50c](https://github.com/user-attachments/assets/e8fb0742-0217-491a-9832-386508cbcf39" width="100">
+
+
+
+
 ### Presentation Layer
 
 The **Presentation Layer** is responsible for UI components and user interactions. It communicates with the **Domain Layer** to fetch and display data.
