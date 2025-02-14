@@ -77,9 +77,7 @@ lib/
 ## Layers
 
 ### Movie details on long press on search item 
-  <img src="https://github.com/user-attachments/assets/c787040d-edc4-46d4-8c88-670a4061f50c](https://github.com/user-attachments/assets/e8fb0742-0217-491a-9832-386508cbcf39" width="100">
-
-
+<img src="https://github.com/user-attachments/assets/3cb83218-5aa0-431e-b138-d6bd6d24b03a" width="100">
 
 
 ### Presentation Layer
